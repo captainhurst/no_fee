@@ -1,0 +1,298 @@
+{% load static from staticfiles %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {% block head %}
+    {% endblock %}
+
+    <!-- Date: 2013-01-30 -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,500,700,900,100italic' rel='stylesheet' type='text/css'>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="/static/js/owl-carousel/owl.carousel.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="/static/js/owl-carousel/owl.theme.css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+  <!-- HEADER -->
+    <nav class="nav-wrapper" role="navigation">
+        <div class="top-nav">
+            <div class="container">
+                <!-- <div class="logo-wrapper col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                    <a href="#">The New York Packet</a>
+                </div> -->
+                <div class="prime-wrapper col-xl-2 col-lg-2 col-md-1 col-sm-12 col-xs-12">
+                </div>
+                <div class="logo-wrapper col-xl-8 col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                    <a href="/">The New-York Packet.</a>
+                </div>
+                
+                <!-- <div class="login-wrapper col-xl-2 col-lg-2 col-md-1 col-sm-12 col-xs-12">
+                      <button type="submit" class="btn btn-custom"><i class="fa fa-play-circle"></i> Log In</button>
+                </div> -->
+            </div>
+             <!-- / container -->
+        </div>
+        <!-- / top nav -->
+        <div class="main-nav">
+            <div class="container">
+                <div class="main-nav-wrapper">
+                    <ul>
+                        {% for h in header %}
+                             {% if h.CategorySlug in request.path %}                        
+                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category active" data-category="{{h.CategorySlug}}">{{h}}</a></li>
+                             {% else %}
+                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category" data-category="{{h.CategorySlug}}">{{h}}</a></li>
+                             {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+             <!-- / container -->
+        </div>
+        {% if subnav %}
+        <div class="subnav">
+            <div class="container">
+                <ul>
+                    <!-- {% for s in subnav %}
+                        {% if s.CategorySlug in request.path %}  
+                 
+                            <li class="active"><a href="/{{ s.ancestors|tree_path }}{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}</a></li>
+                        {% else %}
+
+                            <li><a href="/{{ s }}{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}</a></li>
+                        {% endif %}
+                    {% endfor %} -->
+                    <!-- {% for s in subnav %}
+                        {% if s.CategorySlug in request.path %}   
+                            {% drilldown_tree_for_node s as sc %}
+
+                            <li class="active"><a href="{% for sub_cat in sc %}/{{sub_cat.CategorySlug}}{% endfor %}/{{sc.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% else %}
+                            {% drilldown_tree_for_node s as sc %}
+                            <li><a href="{% for sub_cat in sc %}/{{sub_cat.CategorySlug}}{% endfor %}/{{sc.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% endif %}
+                    {% endfor %} -->
+                    {% for s in subnav %}
+                        {% if s.CategorySlug in request.path %}   
+                            {% drilldown_tree_for_node s as sc %}
+                            <li class="active"><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% else %}
+                            {% drilldown_tree_for_node s as sc %}
+                            <li><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <!-- / main nav -->
+            <!-- <div class="sub-nav" style="display:none">
+                <div class="container"> -->
+                    <!-- {% for h in header %}
+                        <div id="{{h.CategorySlug}}" class="sub-nav-content-wrapper" style="display:none">
+                            {% for sc in h.subs.all %}
+                                <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                                    <a href="/{{h.CategorySlug}}/">{{sc}}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %} -->
+                    <!-- <div id="sn1" class="sub-nav-content-wrapper" style="display:none">
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 3</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 3</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 3</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 3</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category 3</a>
+                        </div>                    
+                    </div> -->
+                    <!-- / #sn-category-1 -->
+                    <!-- <div id="sn2" class="sub-nav-content-wrapper" style="display:none">
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Two 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Two 2</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Two 3</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Two 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Two 2</a>
+                        </div>
+                    </div> -->
+                    <!-- / #sn-category-2 -->
+                    <!-- <div id="sn3" class="sub-nav-content-wrapper" style="display:none">
+                           <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Three 1</a>
+                        </div>
+                        <div class="main-nav-wrapper col-xl-2 col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <a href="#">Sub Category Three 2</a>
+                        </div>
+                        
+                    </div> -->
+                    <!-- / #sn-category-2 -->
+
+            <!-- </div> -->
+             <!-- / container -->
+        <!-- </div> -->
+        <!-- / main nav -->
+    </nav>
+  <!-- /HEADER -->
+    {% block sub_header %}
+    {% endblock %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer-list col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="section-header">Newsletter</h3>
+                    <p>Sign up for updates, insights and other cool stuff!</p>
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="email" class="form-control" id="footer-newsletter-input" placeholder="Email">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default footer-newsletter-button">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>     
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+            </div>
+            <!-- /row    -->
+            <div class="row">
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+            </div>
+            <!-- /row    -->
+        </div>
+        <!-- /container     -->
+    </footer>
+    
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
+<!-- <script src="/static/js/menu.js"></script> -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/lazyYT.min.js"></script>
+<script src="/static/js/jquery.lazy-images.min.js"></script>
+<script src="/static/js/owl-carousel/owl.carousel.min.js"></script>
+
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

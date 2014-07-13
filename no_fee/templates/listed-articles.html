@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+		{% block head %}
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <meta name="description" content="{{page.metaDescription}}">
+		    <meta name="author" content="{{page.author}}">
+			<meta name="keywords" content="{{page.metaKeywords}}">
+
+		    <title>{{page.titleTag}}</title>
+
+			<!--Facebook Meta Tags-->
+			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:type” content="article"/>
+			<meta property=”og:image” content=””/>
+			<meta property=”og:url” content=”{{request.path}}”/>
+			<meta property=”og:description” content=”{{page.metaDescription}}”/>
+			<meta property=”og:website” content=””/>
+
+			<!--Twitter Meta Tags-->
+			<meta name=”twitter:card” content=”summary”>
+			<meta name=”twitter:url” content=”{{request.path}}”>
+			<meta name=”twitter:title” content="{{page.titleTag}}">
+			<meta name=”twitter:description” content="{{page.metaDescription}}">
+			<meta name=”twitter:image” content=””>
+		{% endblock %}
+
+		{% block css %}
+			
+		{% endblock %}
+
+		{% block sub_header %}
+		<div class="main-content-container article-list">
+			<section>
+				<div class="container">
+					<h1>{{ category.CategoryName }}</h1>
+					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					{% for a in articles.section %}	
+						{% if a.Type == "extracted" %}
+							<div class="list-article">
+								{% if a.ParentCategory.CategorySlug in request.path %}
+									<a href="{{a.Slug}}">
+								{% else %}
+									<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
+								{% endif %}
+								<div class="list-image-container">
+									<span class="list-article-image-grid backstretch" data-bgimg="{{a.ArticleMetaImage}}">
+									</span>
+								</div>
+								<div class="list-text-container">
+									<h3 class="list-headline-grid">{{a.DescriptiveTitle}}</h3>
+									<p class="list-preview-text">{{a.MetaDescription|truncatechars:120}}</p>
+								</div>
+								</a>
+							</div>
+							<!-- /article grid -->
+
+						{% elif a.Type == "article" %}
+							<div class="list-article">
+								{% if a.ParentCategory.CategorySlug in request.path %}
+									<a href="{{a.Slug}}">
+								{% else %}
+									<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
+								{% endif %}
+								<div class="list-image-container">
+									<span class="list-article-image-grid backstretch" data-bgimg="/media/{{a.ArticleMedia.PreviewImage}}">
+									</span>
+								</div>
+								<div class="list-text-container">
+									<h3 class="list-headline-grid">{{a.Title}}</h3>
+									<p class="list-subtitle">{{a.Subtitle}}</p>
+									<p class="list-preview-text">{{a.Description|truncatechars:120}}</p>
+								</div>
+								</a>
+							</div>
+							<!-- /article grid -->
+
+						{% endif %}
+					{% endfor %}
+				</div>
+				</div>
+				<!-- /container -->
+			</section>
+		</div>
+			
+		{% endblock %}
+		
+		
+		{% block modals %}
+
+		{% endblock %}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>	
+<script>
+	$(document).ready(function(){
+		$('.backstretch').each(function(){
+			var bgimg = $(this).data('bgimg');
+			$(this).backstretch(bgimg);
+		});
+		$('.list-article-image-grid').each(function(){
+			var w = $(this).outerWidth();
+			$(this).css('height', w+'px');
+		});
+		// $("#owl").owlCarousel({
+ 
+		//       navigation : false, // Show next and prev buttons
+		//       slideSpeed : 300,
+		//       paginationSpeed : 400,
+		//       stopOnHover: true,
+		//       singleItem:true
+		 
+		//       // "singleItem:true" is a shortcut for:
+		//       // items : 1, 
+		//       // itemsDesktop : false,
+		//       // itemsDesktopSmall : false,
+		//       // itemsTablet: false,
+		//       // itemsMobile : false
+		 
+		//   });		
+		// $('.lazyYT').lazyYT();
+
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.list-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+</script>
+		{% endblock %}

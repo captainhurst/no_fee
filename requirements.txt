@@ -1,0 +1,11 @@
+Django==1.6.5
+Fabric==1.9.0
+MySQL-python==1.2.5
+Pillow==2.5.1
+South==1.0
+django-mptt==0.6.1
+django-taggit==0.12
+ecdsa==0.11
+paramiko==1.14.0
+pycrypto==2.6.1
+wsgiref==0.1.2

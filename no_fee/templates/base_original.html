@@ -1,0 +1,89 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel=stylesheet type="text/css" media=screen href="{{ STATIC_URL }}css/bootstrap.min.css"/>
+	<link rel=stylesheet type="text/css" media=screen href="{{ STATIC_URL }}css/style.css"/>
+	<link rel=stylesheet type="text/css" media=screen href="{{ STATIC_URL }}css/hurst_style.css" />
+	<meta name="author" content="Ryan Hurst">
+	{% block head %}
+	{% endblock %}
+	<!-- Date: 2011-09-24 -->
+</head>
+<body>
+	<div id='body_wrapper'>
+	<div id='header'>
+		<div id='header_left'>
+			<a href="{% url 'landing_page.views.landing'%}">
+				rbh.me
+			</a>
+		</div>
+		<div id='header_right'>
+			<ul id='nav_list'>
+				<li>
+					<p class='nav_header'><a href="{% url 'articles_4th.views.article_main' %}">blog</a></p>
+					<p class='nav_subtext'><a href="{% url 'articles_4th.views.article_main' %}">cool products, deals and more</a></p>
+				</li>
+				<li>
+					<p class='nav_header'><a href="{% url 'articles_4th.views.find_us' %}">find us</a></p>
+					<p class='nav_subtext'><a href="{% url 'articles_4th.views.find_us' %}">location, hours and contact info</a></p>
+				</li>
+				<!--<li>
+					<p class='nav_header'>follow us</p>
+					<p class='nav_subtext'><a href="http://www.twitter.com/TimberlineHeber"><img src="http://twitter-badges.s3.amazonaws.com/twitter-a.png" alt="Follow 4thSouthACE on Twitter"/></a></p>
+				</li>-->
+				<li>
+					<p class='nav_header'><a href="{% url 'news_4th.views.news_main' %}">news</a></p>
+					<p class='nav_subtext'><a href="{% url 'news_4th.views.news_main' %}">events, promotions and milestones</a></p>
+				</li>
+				<li>
+					<p class='nav_header'><a href="{% url 'products_4th.views.products_main' %}">products</a></p>
+					<p class='nav_subtext'><a href="{% url 'products_4th.views.products_main' %}">things we sell</a></p>
+				</li>
+				<li>
+					<!--<p class='nav_header'>like &amp; follow us</p>-->
+					<p class='nav_subtext'>
+						<div id="fb-root"></div>
+						<script>(function(d, s, id) {
+						  var js, fjs = d.getElementsByTagName(s)[0];
+						  if (d.getElementById(id)) {return;}
+						  js = d.createElement(s); js.id = id;
+						  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+						  fjs.parentNode.insertBefore(js, fjs);
+						}(document, 'script', 'facebook-jssdk'));</script>
+
+						<div class="fb-like" data-href="https://www.facebook.com/pages/Timberline-General-Store-ACE-Hardware/223152901073617" data-send="false" data-layout="button_count" data-width="40" data-show-faces="false" data-colorscheme="dark" data-font="arial"></div></p>
+						<p class='nav_subtext'><a href="http://www.twitter.com/TimberlineHeber"><img src="http://twitter-badges.s3.amazonaws.com/twitter-a.png" alt="Follow 4thSouthACE on Twitter"/></a></p>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
+	{% block sub_header %}
+	{% endblock %}
+	
+
+	
+	<div id='footer'>
+		<ul class="navbar navbar-inverse">		
+			<li><a href="{% url 'articles_4th.views.about_page' %}">About Us</a></li>
+			<li><a href="{% url 'contact_4th.views.contact' %}">Contact Us</a></li>
+			<li><a href="/sitemap.xml">Sitemap</a></li>
+			
+		</ul>
+		<span style="width: 100%; color: #cccccc; font-size: 12px; font-style: italic; margin-top: 30px; padding-left: 550px">Designed and Managed by Ryan @ <a style='color: white;' href='http://untamedenterprises.com'>Untamed Enterprises</a></span>
+		
+	</div><!-- END FOOTER-->
+	</div><!-- END CONTENT DIV -->
+	<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.js"></script>
+    <script src="{{STATIC_URL}}js/holder.js"></script>
+	{% block extra_js %}
+	{% endblock %}
+</body>
+</html>

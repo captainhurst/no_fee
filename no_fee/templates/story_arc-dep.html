@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+		{% block head %}
+
+		<title>{{ page.Title }}</title>
+		<meta name="description" content="{{ page.Description }}">
+		<meta name="author" content="{{ page.Author.first_name }} {{ page.Author.last_name }}">
+		<meta property="og:title" content="{{ page.Title }}"/>
+		<meta property="og:image" content="/media/{{ page.ArticleMedia.SocialImage }}"/>
+		<meta property="og:description" content="{{ page.Description }}"/>
+		<meta property="og:type" content="article"/>
+
+		{% endblock%}
+		
+		{% block extra_css %}
+
+		{% endblock%}
+		
+		{% block sub_header %}
+
+		<div class="container">
+			<div class="row">
+				<div class="article-content-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					
+					<!-- <div class="time-author-wrapper">
+						<p><a href="#" class="author">{{page.Author.first_name}} {{page.Author.last_name}}</a> <span class="pipe-margin">|</span> <a href="#" class="personal-social social-twitter"><i class="fa fa-twitter"></i></a> <a href="#" class="personal-social social-facebook"><i class="fa fa-facebook"></i></a> <a href="#" class="personal-social social-instagram"><i class="fa fa-instagram"></i></a> <span class="pipe-margin">|</span> <span class="date">{{page.PublishTime}}</span></p>
+					</div> -->
+					<h1>This Is A Major Headline</h1>
+					<article class='synopsis-text-wrapper'>
+						{% autoescape off %}
+						{% endautoescape %}
+						<p>Cheese ipsum pont l'eveque humboldt fog westcombe morbier, bleu d'auvergne camembert coupole tessiner geisskase montasio. Roucoulons garrotxa north country blue bleu de, gex pepper jack ibores chabichou de poitou garrotxa mountain top bleu. Roncal pierre-robert mont st. francis browning gold hoja santa scharfe maxx, caprino noce piave stilton ticklemore tessiner geisskase roves des garrigues. Fromage de meaux merry goat round flada nettle meadow kunik pleasant ridge reserve saint marcellin comte tessiner geisskase val bagner hudson valley camembert double, gloucester single gloucester orb weaver vermont farmhouse cheese.</p>
+						<ul>
+							<li>Cheese ipsum pont l'eveque humboldt fog westcombe morbier, bleu d'auvergne camembert coupole tessiner geisskase montasio.</li>
+							<li>Roucoulons garrotxa north country blue bleu de, gex pepper jack ibores chabichou de poitou garrotxa mountain top bleu. Roncal pierre-robert mont st. francis browning gold hoja santa scharfe maxx, caprino noce piave stilton ticklemore tessiner geisskase roves des garrigues.</li>
+						</ul>
+					</article>
+					<section class="social-share">
+						<div class="row">
+							<button class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-facebook"></i> Share on Facebook</button>
+							<button class="btn btn-twitter full-width-button  col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-twitter"></i> Share on Twitter</button>
+						</div>
+					</section>
+					<section class="timeline-section">
+						<ul class="cbp_tmtimeline">
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-10 18:30"><span>4/10/13</span> <span>18:30</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Ricebean black-eyed pea</h2>
+								<p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Pea sprouts wattle seed rutabaga okra yarrow cress avocado grape radish bush tomato ricebean black-eyed pea maize eggplant. Cabbage lentil cucumber chickpea sorrel gram garbanzo plantain lotus root bok choy squash cress potato summer purslane salsify fennel horseradish dulse. Winter purslane garbanzo artichoke broccoli lentil corn okra silver beet celery quandong. Plantain salad beetroot bunya nuts black-eyed pea collard greens radish water spinach gourd chicory prairie turnip avocado sierra leone bologi.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-11T12:04"><span>4/11/13</span> <span>12:04</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Greens radish arugula</h2>
+								<p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-13 05:36"><span>4/13/13</span> <span>05:36</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Sprout garlic kohlrabi</h2>
+								<p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-15 13:15"><span>4/15/13</span> <span>13:15</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Watercress ricebean</h2>
+								<p>Peanut gourd nori welsh onion rock melon mustard jícama. Desert raisin amaranth kombu aubergine kale seakale brussels sprout pea. Black-eyed pea celtuce bamboo shoot salad kohlrabi leek squash prairie turnip catsear rock melon chard taro broccoli turnip greens. Fennel quandong potato watercress ricebean swiss chard garbanzo. Endive daikon brussels sprout lotus root silver beet epazote melon shallot.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>4/16/13</span> <span>21:30</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Courgette daikon</h2>
+								<p>Parsley amaranth tigernut silver beet maize fennel spinach. Ricebean black-eyed pea maize scallion green bean spinach cabbage jícama bell pepper carrot onion corn plantain garbanzo. Sierra leone bologi komatsuna celery peanut swiss chard silver beet squash dandelion maize chicory burdock tatsoi dulse radish wakame beetroot.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-17 12:11"><span>4/17/13</span> <span>12:11</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Greens radish arugula</h2>
+								<p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-18 09:56"><span>4/18/13</span> <span>09:56</span></time>
+							<div class="cbp_tmicon"></div>
+							<div class="cbp_tmlabel">
+								<h2>Sprout garlic kohlrabi</h2>
+								<p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
+							</div>
+						</li>
+					</ul>
+				</section>
+
+
+				</div>
+			</div>
+		</div>
+
+		
+		{% endblock%}
+		
+		{% block modals %}
+
+		{% endblock%}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>			
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				$('img.lazy').lazy();
+
+				$('.backstretch').each(function(){
+					var bgimg = $(this).data('bgimg');
+					$(this).backstretch(bgimg);
+				});
+
+				$('.product-image').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+
+				$(window).resize(function(){
+					$('.product-image').each(function(){
+						var w = $(this).outerWidth();
+						$(this).css('height', w+'px');
+					});
+				});
+			});
+
+	$(document).ready(function(){
+	
+		$('.lazyYT').lazyYT();
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.home-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+		  </script>
+		{% endblock %}

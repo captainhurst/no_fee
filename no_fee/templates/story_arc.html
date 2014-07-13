@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+
+		{% block head %}
+
+		<title>{{ page.Title }}</title>
+		<meta name="description" content="{{ page.Description }}">
+		<meta name="author" content="{{ page.Author.first_name }} {{ page.Author.last_name }}">
+		<meta property="og:title" content="{{ page.Title }}"/>
+		<meta property="og:image" content="/media/{{ page.ArticleMedia.SocialImage }}"/>
+		<meta property="og:description" content="{{ page.Description }}"/>
+		<meta property="og:type" content="article"/>
+
+		{% endblock%}
+		
+		{% block extra_css %}
+
+		{% endblock%}
+		
+		{% block sub_header %}
+
+		<div class="container">
+			<div class="row">
+				<div class="article-content-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="title-wrapper">
+						<h1>{{story.StoryTitle}}</h1>
+						<p>{{story.StorySubtitle}}</p>
+					</div>
+					{% if story.StoryMedia.ArticleImage %}
+					<div class="lead-image-wrapper">
+						<img class="lazy" data-src="/media/{{story.StoryMedia.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+					</div>
+					{% elif story.ArticleMedia.YouTubeId %}
+					<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ story.StoryMedia.YouTubeId }}" data-width="100%" data-height="500">
+						
+					</div>
+					{% endif %}
+					<div class="time-author-wrapper">
+							{% if story.StoryAuthor.first_name %}
+							<a href="#" class="author">{{story.StoryAuthor.first_name}} {{story.StoryAuthor.last_name}}</a> 
+							<span class="pipe-margin">|</span>
+							{%endif %}
+							
+							{% if story.StoryAuthor.profile.TwitterUserName %} 
+							<a href="https://twitter.com/{{ story.StoryAuthor.profile.TwitterUserName }}" target="_BLANK" class="personal-social social-twitter">
+								<i class="fa fa-twitter"></i>
+							</a> 
+							{% endif %}
+							{% if story.StoryAuthor.profile.FacebookUrl %}
+							<a href="{{story.StoryAuthor.profile.FacebookUrl}}" target="_BLANK" class="personal-social social-facebook">
+								<i class="fa fa-facebook"></i>
+							</a> 
+							{% endif %}
+							{% if story.StoryAuthor.profile.InstagramUserName %}
+							<a href="https://www.instagram.com/{{story.StoryAuthor.profile.InstagramUserName}}" target="_BLANK" class="personal-social social-instagram">
+								<i class="fa fa-instagram"></i>
+							</a> 
+							{% endif %}
+							{% if story.StoryAuthor.profile.TwitterUserName or story.StoryAuthor.profile.FacebookUrl or story.StoryAuthor.profile.InstagramUserName %}
+							<span class="pipe-margin">|</span>
+							{% endif %}
+							<span class="date">{{story.PublishTime | date}}</span></p>
+					</div>
+					<article class='synopsis-text-wrapper'>
+						<h3><i>Summary</i></h3>
+						{% autoescape off %}
+						{{story.StoryText}}
+						{% endautoescape %}
+					</article>
+					<section class="social-share">
+						<div class="row">
+							<button class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-facebook"></i> Share on Facebook</button>
+							<button class="btn btn-twitter full-width-button  col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-twitter"></i> Share on Twitter</button>
+						</div>
+					</section>
+					<section class="timeline-section">
+						<ul class="cbp_tmtimeline">
+						{% for s in children %}
+						<li>
+							<time class="cbp_tmtime" datetime="{{ s.PublishTime }}"><span>{{s.PublishTime | date }}</span></time>
+							<div class="cbp_tmlabel">
+								{% drilldown_tree_for_node s.ParentCategory as sc %}
+								<a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+	/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.ParentCategory.CategorySlug}}/{{s.Slug}}">
+								<div class="lead-image-wrapper">
+									<img class="lazy" data-src="{{s.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+								</div>
+								{% if s.Type == "extracted" %}
+								<h2>{{s.DescriptiveTitle}}</h2>
+								<p>{{s.MetaDescription|truncatechars:120}} &nbsp;&nbsp;&nbsp;<i>(Read on)</i></p>
+								{% elif s.Type == "article" %}
+								<h2>{{s.Title}}</h2>
+								<p>{{s.Description|truncatechars:120}} &nbsp;&nbsp;&nbsp;<i>(Read on)</i></p>
+								{% elif s.Type == "story" %}
+								{% endif %}
+
+							</a>
+							</div>
+						</li>
+						{% endfor %}
+						<!-- <li>
+							<time class="cbp_tmtime" datetime="2013-04-11T12:04"><span>4/11/13</span> <span>12:04</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Greens radish arugula</h2>
+								<p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-13 05:36"><span>4/13/13</span> <span>05:36</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Sprout garlic kohlrabi</h2>
+								<p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-15 13:15"><span>4/15/13</span> <span>13:15</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Watercress ricebean</h2>
+								<p>Peanut gourd nori welsh onion rock melon mustard jícama. Desert raisin amaranth kombu aubergine kale seakale brussels sprout pea. Black-eyed pea celtuce bamboo shoot salad kohlrabi leek squash prairie turnip catsear rock melon chard taro broccoli turnip greens. Fennel quandong potato watercress ricebean swiss chard garbanzo. Endive daikon brussels sprout lotus root silver beet epazote melon shallot.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-16 21:30"><span>4/16/13</span> <span>21:30</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Courgette daikon</h2>
+								<p>Parsley amaranth tigernut silver beet maize fennel spinach. Ricebean black-eyed pea maize scallion green bean spinach cabbage jícama bell pepper carrot onion corn plantain garbanzo. Sierra leone bologi komatsuna celery peanut swiss chard silver beet squash dandelion maize chicory burdock tatsoi dulse radish wakame beetroot.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-17 12:11"><span>4/17/13</span> <span>12:11</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Greens radish arugula</h2>
+								<p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
+							</div>
+						</li>
+						<li>
+							<time class="cbp_tmtime" datetime="2013-04-18 09:56"><span>4/18/13</span> <span>09:56</span></time>
+							<div class="cbp_tmlabel">
+								<h2>Sprout garlic kohlrabi</h2>
+								<p>Parsnip lotus root celery yarrow seakale tomato collard greens tigernut epazote ricebean melon tomatillo soybean chicory broccoli beet greens peanut salad. Lotus root burdock bell pepper chickweed shallot groundnut pea sprouts welsh onion wattle seed pea salsify turnip scallion peanut arugula bamboo shoot onion swiss chard. Avocado tomato peanut soko amaranth grape fennel chickweed mung bean soybean endive squash beet greens carrot chicory green bean. Tigernut dandelion sea lettuce garlic daikon courgette celery maize parsley komatsuna black-eyed pea bell pepper aubergine cauliflower zucchini. Quandong pea chickweed tomatillo quandong cauliflower spinach water spinach.</p>
+							</div>
+						</li> -->
+					</ul>
+				</section>
+
+
+				</div>
+			</div>
+		</div>
+
+		
+		{% endblock%}
+		
+		{% block modals %}
+
+		{% endblock%}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>			
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				$('img.lazy').lazy();
+
+				$('.backstretch').each(function(){
+					var bgimg = $(this).data('bgimg');
+					$(this).backstretch(bgimg);
+				});
+
+				$('.product-image').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+
+				$(window).resize(function(){
+					$('.product-image').each(function(){
+						var w = $(this).outerWidth();
+						$(this).css('height', w+'px');
+					});
+				});
+			});
+
+	$(document).ready(function(){
+	
+		$('.lazyYT').lazyYT();
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.home-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+		  </script>
+		{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+		{% block head %}
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <meta name="description" content="{{page.metaDescription}}">
+		    <meta name="author" content="{{page.author}}">
+			<meta name="keywords" content="{{page.metaKeywords}}">
+
+		    <title>{{page.titleTag}}</title>
+
+			<!--Facebook Meta Tags-->
+			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:type” content="article"/>
+			<meta property=”og:image” content=””/>
+			<meta property=”og:url” content=”{{request.path}}”/>
+			<meta property=”og:description” content=”{{page.metaDescription}}”/>
+			<meta property=”og:website” content=””/>
+
+			<!--Twitter Meta Tags-->
+			<meta name=”twitter:card” content=”summary”>
+			<meta name=”twitter:url” content=”{{request.path}}”>
+			<meta name=”twitter:title” content="{{page.titleTag}}">
+			<meta name=”twitter:description” content="{{page.metaDescription}}">
+			<meta name=”twitter:image” content=””>
+		{% endblock %}
+
+		{% block css %}
+			
+		{% endblock %}
+
+		{% block sub_header %}
+		<div class="main-content-container">
+			<div class="container">
+				{% include "components/_content_banner.html"%}
+			</div>
+			<!-- /container -->
+			<section>
+				<div class="container">
+					<h2 class="section-header">Article Section</h2>
+					{% include "components/_article_blocks.html"%}
+				</div>
+				<!-- /container -->
+			</section>
+			{% if articles.video %}
+			<section>
+			{% include "components/_video_section.html"%}				
+			</section>
+			{% endif %}
+		</div>
+			
+		{% endblock %}
+		
+		
+		{% block modals %}
+
+		{% endblock %}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>	
+<script>
+	$(document).ready(function(){
+		$('.backstretch').each(function(){
+			var bgimg = $(this).data('bgimg');
+			$(this).backstretch(bgimg);
+		});
+		$('.home-article-image-grid').each(function(){
+			var w = $(this).outerWidth();
+			$(this).css('height', w+'px');
+		});
+		// $("#owl").owlCarousel({
+ 
+		//       navigation : false, // Show next and prev buttons
+		//       slideSpeed : 300,
+		//       paginationSpeed : 400,
+		//       stopOnHover: true,
+		//       singleItem:true
+		 
+		//       // "singleItem:true" is a shortcut for:
+		//       // items : 1, 
+		//       // itemsDesktop : false,
+		//       // itemsDesktopSmall : false,
+		//       // itemsTablet: false,
+		//       // itemsMobile : false
+		 
+		//   });		
+		$('.lazyYT').lazyYT();
+
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.home-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+</script>
+		{% endblock %}

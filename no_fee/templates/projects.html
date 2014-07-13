@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+		{% block head %}
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <meta name="description" content="{{page.metaDescription}}">
+		    <meta name="author" content="{{page.author}}">
+			<meta name="keywords" content="{{page.metaKeywords}}">
+
+		    <title>{{page.titleTag}}</title>
+
+			<!--Facebook Meta Tags-->
+			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:type” content="article"/>
+			<meta property=”og:image” content=””/>
+			<meta property=”og:url” content=”{{request.path}}”/>
+			<meta property=”og:description” content=”{{page.metaDescription}}”/>
+			<meta property=”og:website” content=””/>
+
+			<!--Twitter Meta Tags-->
+			<meta name=”twitter:card” content=”summary”>
+			<meta name=”twitter:url” content=”{{request.path}}”>
+			<meta name=”twitter:title” content="{{page.titleTag}}">
+			<meta name=”twitter:description” content="{{page.metaDescription}}">
+			<meta name=”twitter:image” content=””>
+		{% endblock%}
+		
+		{% block extra_css %}
+
+		{% endblock%}
+		
+		{% block sub_header %}
+		
+			<div class='content_spacer'></div>
+		    <div class="container articleContainer">
+		      <!-- Three columns of text below the carousel -->
+		      <div class="row">
+		        <div class="col-lg-7 col-md-7 col-sm-7">   
+					<div id="project-carousel" class="carousel slide">
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+						{% for i in images %}
+							{% if forloop.counter0 == 0%}
+							<li data-target="#project-carousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+							{% else %}
+							<li data-target="#project-carousel" data-slide-to="{{forloop.counter0}}"></li>
+							{% endif %}
+						{% endfor %}
+
+					  </ol>
+
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+						{% for i in images %}
+							{% if forloop.counter0 == 0%}
+						<div class="item active">
+							{% else %}
+						<div class="item">
+							{% endif %}
+							<img src='{{STATIC_URL}}images/{{i.project_images}}'/>
+							<div class="carousel-caption">
+						    </div>
+						 </div>
+						{% endfor %}
+					  </div>
+
+					  <!-- Controls -->
+					  <a class="left carousel-control" href="#project-carousel" data-slide="prev">
+					    <span class="icon-prev"></span>
+					  </a>
+					  <a class="right carousel-control" href="#project-carousel" data-slide="next">
+					    <span class="icon-next"></span>
+					  </a>
+					</div>
+					<script type='text/javascript'>
+						$('#project-carousel').carousel()
+					</script>
+				  <h2 class='articleTitle'>{{page.project_name}}</h2>
+				  <div class='article_text'>
+				  	{% autoescape off %}
+					{{page.project_text}}
+					{% endautoescape%}
+				  </div>
+				
+		        </div><!-- /.col-lg-7 -->
+		        <div class="col-lg-3 col-md-3 col-sm-3">
+					<div class="sidebar">
+						<h2 class='big_red_header_sb'>Hours</h2>			
+						<div class='store_hours_div'>
+							<p class='store_hours'><span class='store_hours_text'>Monday - Saturday: </span></br><span class='store_hours_numbers'>8:00am - 7:00pm</span></p>
+							<p class='store_hours'><span class='store_hours_text'>Sunday: </span></br><span class='store_hours_numbers'>10:00am - 4:00pm</span></p>
+						</div>
+					</div>
+					<div class="sidebar margin-top-20">
+						<h2 class='big_red_header_sb'>Newsletter</h2>
+							<div id="emailSubmitHide">
+								<form id='ajax-email-list' role="form">{% csrf_token %}
+									<div class="form-group">
+									<label class="sr-only" for="exampleInputEmail2">Email address</label>
+									{{ecForm.emailSB}}
+									</div>
+									<button class="btn btn-sm btn-success pull-right" id="submit-email-button" onclick="submitEmail(event);">Submit Email</button>
+								</form>
+							</div>
+							<div id="onEmailSubmit" style="display: none;">
+								<p class="thank-you-text">Thank you! Expect great project ideas and discounts in your inbox!</p>
+							</div>
+								<script type='text/javascript'>
+								function submitEmail(e){
+									e.preventDefault();
+									var email_form_info = $('#ajax-email-list').serialize();
+										//alert(email_form_info);
+										$.ajax({
+											type:'POST',
+											url: '/ajax/email_capture',
+											data: email_form_info,
+											success: function(r){
+						                    	//alert(r);
+													if(r == "True"){
+														$("#emailSubmitHide").hide();
+														$("#onEmailSubmit").show();
+													}else if(r == 'invalid'){
+														$("#emailSubmitHide").hide();
+														$("#onEmailSubmit").show();
+													}else if (r == "False"){
+														
+													}
+												},
+										});
+								}
+								</script>
+					</div>	
+					<div class="sidebar margin-top-20">
+						<h2 class='big_red_header_sb'>Store Blog</h2>
+						{% if blog %}			
+						{% for b in blog %}
+							<h4 class='subCategoryHeaderSB'><a href='/blog/{{ b.category.category_slug }}/{{b.descriptive_url}}'>{{b.article_title}}</a></h4>
+							<p class='articleTeaseSB'>{{b.article_text|striptags|truncatewords:20}} <a href="/blog/{{ b.category.category_slug }}/{{b.descriptive_url}}">[Read More]</a></p>
+						{% endfor %}
+						{% else %}
+							<p classp="no-content">There are no blog articles at this time.</p>
+						{% endif %}
+					</div>  
+
+					<div class="margin-top-20">
+					<h2 class='big_red_header_sb'>Store News</h2>
+						{% if news %}						
+						{% for n in news %}
+							<h4 class='subCategoryHeaderSB'><a href='/news/{{n.descriptive_url}}'>{{n.news_title}}</a></h4>
+							<p class='articleTeaseSB'>{{n.news_text|striptags|truncatewords:20}} <a href="/news/{{n.descriptive_url}}">[Read More]</a></p>
+						{% endfor %}
+						{% else %}
+							<p classp="no-content">There are no news articles at this time.</p>
+						{% endif %}
+					</div>   
+		        </div><!-- /.col-lg-5 -->
+		      </div><!-- /.row -->	
+			</div>
+		
+		{% endblock%}
+		
+		{% block modals %}
+		<!-- Modal -->
+		  <div class="modal" id="review">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		          <h3 class="modal-title">Review {{ content.name }}</h4>
+		        </div>
+		        <div class="modal-body">
+		          <p>All reviews are verified. You must submit a valid email address so we can contact you to get a proof of visit.</p>
+				  <div class=''>
+
+					<div class="form-group">
+					    <label for="review_email">Email address</label>
+					  	<input type='email' class='form-control' name='review_email' placeholder='Email Address'>
+					</div>
+					<div class="form-group">
+					    <label for="review_content">Write a review:</label>
+						<textarea class='form-control' name='review_content' placeholder='Write about your experience.'></textarea>
+					</div>
+				  </div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-sm btn-success">Submit</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+		{% endblock%}
+		
+		{% block extra_js %}
+
+		<script type='text/javascript'>
+			$(document).ready(function(){
+
+			});
+		  </script>
+		{% endblock %}

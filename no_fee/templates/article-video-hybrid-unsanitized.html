@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+
+		{% block head %}
+
+		<title>{{ page.Title }}</title>
+		<meta name="description" content="{{ page.Description }}">
+		<meta name="author" content="{{ page.Author.first_name }} {{ page.Author.last_name }}">
+		<meta property="og:title" content="{{ page.Title }}"/>
+		<meta property="og:image" content="/media/{{ page.ArticleMedia.SocialImage }}"/>
+		<meta property="og:description" content="{{ page.Description }}"/>
+		<meta property="og:type" content="article"/>
+
+		{% endblock%}
+		
+		{% block extra_css %}
+
+		{% endblock%}
+		
+		{% block sub_header %}
+
+		<div class="container">
+			<div class="row">
+				<div class="article-content-column col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					{% if isArticle %}
+					<div class="title-wrapper">
+						<h1>{{page.Title}}</h1>
+						<p>{{page.Subtitle}}</p>
+					</div>
+					{% if page.ArticleMedia.ArticleImage %}
+					<div class="lead-image-wrapper">
+						<img class="lazy" data-src="/media/{{page.ArticleMedia.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+					</div>`
+					{% elif page.ArticleMedia.YouTubeId %}
+					<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ page.ArticleMedia.YouTubeId }}" data-width="100%" data-height="500">
+						
+					</div>
+					{% endif %}
+					<div class="time-author-wrapper">
+						<p><a href="#" class="author">{{page.Author.first_name}} {{page.Author.last_name}}</a> 
+							<span class="pipe-margin">|</span>
+							{% if page.Author.profile.TwitterUserName %} 
+							<a href="https://twitter.com/{{ page.Author.profile.TwitterUserName }}" target="_BLANK" class="personal-social social-twitter">
+								<i class="fa fa-twitter"></i>
+							</a> 
+							{% endif %}
+							{% if page.Author.profile.FacebookUrl %}
+							<a href="{{page.Author.profile.FacebookUrl}}" target="_BLANK" class="personal-social social-facebook">
+								<i class="fa fa-facebook"></i>
+							</a> 
+							{% endif %}
+							{% if page.Author.profile.InstagramUserName %}
+							<a href="https://www.instagram.com/{{page.Author.profile.InstagramUserName}}" target="_BLANK" class="personal-social social-instagram">
+								<i class="fa fa-instagram"></i>
+							</a> 
+							{% endif %}
+							<span class="pipe-margin">|</span> <span class="date">{{page.PublishTime}}</span></p>
+					</div>
+					<article class='article-text-wrapper'>
+						{% autoescape off %}
+						{{page.ArticleText}}
+						{% endautoescape %}
+					</article>
+					{% else %}
+					<div class="title-wrapper">
+						<h1>{{page.DescriptiveTitle}}</h1>
+						<p>{{page.Subtitle}}</p>
+					</div>
+					{% if page.ArticleVideoLead %}
+					
+					<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ page.ArticleVideoLead }}" data-width="100%" data-height="500">
+						
+					</div>
+					{% elif page.ArticleImage %}
+					<div class="lead-image-wrapper">
+						<img class="lazy" data-src="{{page.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+					</div>
+					{%else %}
+					{% endif %}
+					<div class="time-author-wrapper">
+						<p>
+							{% if page.Author.first_name %}
+							<a href="#" class="author">{{page.Author.first_name}} {{page.Author.last_name}}</a> 
+							<span class="pipe-margin">|</span>
+							{%endif %}
+							
+							{% if page.Author.profile.TwitterUserName %} 
+							<a href="https://twitter.com/{{ page.Author.profile.TwitterUserName }}" target="_BLANK" class="personal-social social-twitter">
+								<i class="fa fa-twitter"></i>
+							</a> 
+							{% endif %}
+							{% if page.Author.profile.FacebookUrl %}
+							<a href="{{page.Author.profile.FacebookUrl}}" target="_BLANK" class="personal-social social-facebook">
+								<i class="fa fa-facebook"></i>
+							</a> 
+							{% endif %}
+							{% if page.Author.profile.InstagramUserName %}
+							<a href="https://www.instagram.com/{{page.Author.profile.InstagramUserName}}" target="_BLANK" class="personal-social social-instagram">
+								<i class="fa fa-instagram"></i>
+							</a> 
+							{% endif %}
+							{% if page.Author.profile.TwitterUserName or page.Author.profile.FacebookUrl or page.Author.profile.InstagramUserName %}
+							<span class="pipe-margin">|</span>
+							{% endif %}
+							<span class="date">{{page.PublishTime}}</span></p>
+					</div>
+					<!-- time author wrapper -->
+					<article class='article-text-wrapper'>
+						{% autoescape off %}
+						{{page.ArticleText}}
+						{% endautoescape %}
+					</article>
+					{% endif %}
+					<section class="social-share">
+						<div class="row">
+							<a class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" data-network="FB" href="https://www.facebook.com/sharer/sharer.php?app_id=x&u=http%3A%2F%2Fwww.thenewyorkpacket.com{{request.path|urlencode}}&t={{page.Title|urlencode}}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+								<i class="fa fa-facebook"></i> Share on Facebook
+							</a>
+							<a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.thenewyorkpacket.com{{request.path|urlencode}}&text={{page.Title|urlencode}}&via=nypacket" class="btn btn-twitter full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+							<!-- <button class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-facebook"></i> Share on Facebook</button> -->
+							<!-- <button class="btn btn-twitter full-width-button  col-lg-6 col-md-6 col-sm-6 col-xs-6"><i class="fa fa-twitter"></i> Share on Twitter</button> -->
+						</div>
+					</section>
+					<section class="product-links">
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<h4 class="product-header">Recommended</h4>
+							</div>
+						</div>
+						<div class="row">
+								{% for p in page.FeaturedProducts.all %}
+								<div class="product-container col-lg-3 col-md-3 col-sm-3 col-xs-3">
+									<a href="{{ p.AffiliateLink }}" target="_BLANK">
+										<span class="product-image backstretch" data-bgimg="/media/{{ p.ProductImage }}">
+										</span>
+										<p class="product-name">{{p.ProductName}}</p>
+									</a>
+								</div>
+								{% endfor %}
+						</div>
+					</section>
+					<!-- End Product Links -->
+				</div>
+				<div class="sidebar-column col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					<!-- {% for p in page.FeaturedProducts.all %}
+					<div class="product-container">
+						<a href="{{ p.AffiliateLink }}" target="_BLANK">
+							<span class="product-image backstretch" data-bgimg="/media/{{ p.ProductImage }}">
+							</span>
+							<p class="product-name">{{p.ProductName}}</p>
+						</a>
+					</div>
+					{% endfor %} -->
+					<!--<div class="sidebar-advertisement-wrapper">
+						<h6 class="sidebar-section-header">Advertisement</h6>
+						<a class="ad-link" href="#" > <img class="lazy" data-src="http://www.webdesignbooth.com/wp-content/uploads/2009/07/fedex-advertisement.jpg" src="" alt="Advertisement Text">
+						</a>
+					</div>-->
+					<!-- end advertisement wrapper -->
+					<!-- <div class="sidebar-newsletter-container">
+						<h3 class="section-header">Newsletter</h3>
+                    	<p>Sign up for updates, insights and other cool stuff!</p>
+                    	<form class="form-horizontal" role="form">
+                    	    <div class="form-group">
+                    	        <div class="col-sm-12">
+                    	            <input type="email" class="form-control" id="footer-newsletter-input" placeholder="Email">
+                    	        </div>
+                    	    </div>
+                    	     <div class="form-group">
+                    	        <div class="col-sm-12">
+                    	            <button type="submit" class="btn btn-success">Sign Up</button>
+                    	        </div>
+                    	    </div>
+                    	</form> 
+					</div> -->
+					<!-- End newsletter wrapper -->
+					<div class="sidebar-section-wrapper">
+						{% if page.recent %}
+						<h3 class="section-header"><!-- Recent Articles:  -->{{page.ParentCategory.CategoryName}}</h3>
+						<div class="sidebar-article-block">
+							{% for r in page.recent %}
+								{% if r.TweetId %}
+								<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+									<!-- <a href="/{{ r.ParentCategory.CategorySlug }}/{{r.Slug}}"> -->
+									{% drilldown_tree_for_node r.ParentCategory as sc %}
+									<a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+	/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{r.ParentCategory.CategorySlug}}/{{r.Slug}}">
+										{% if r.ArticleImage == None %}
+										<img class="lazy" data-src="{{r.ArticleImage }}" src="" alt="&nbsp;">
+										{% else %}
+										<img class="lazy" data-src="{{r.ArticleMetaImage }}" src="" alt="&nbsp;">
+										{% endif %}
+										<h5>{{ r.DescriptiveTitle}}</h5>
+									</a>
+								</div>
+								{% else %}
+								<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+									<!-- <a href="/{{ r.ParentCategory.CategorySlug }}/{{r.Slug}}"> -->
+									{% drilldown_tree_for_node r.ParentCategory as sc %}
+									<a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+	/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{r.ParentCategory.CategorySlug}}/{{r.Slug}}">
+										{% if r.ArticleMedia.PreviewImage == None %}
+										<img class="lazy" data-src="/media/{{r.ArticleMedia.ArticleImage }}" src="" alt="&nbsp;">
+										{% else %}
+										<img class="lazy" data-src="/media/{{r.ArticleMedia.PreviewImage }}" src="" alt="&nbsp;">
+										{% endif %}
+										<h5>{{ r.Title}}</h5>
+									</a>
+								</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}	
+							<!-- <div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+								<a href="#">
+									<img class="lazy" data-src="https://farm8.staticflickr.com/7083/7163415146_97264f76b2_b.jpg" src="" alt="&nbsp;">
+									<h5>This is a link</h5>
+								</a>
+							</div>
+							<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+								<a href="#">
+									<img class="lazy" data-src="https://farm8.staticflickr.com/7083/7163415146_97264f76b2_b.jpg" src="" alt="&nbsp;">
+									<h5>This is a link</h5>
+								</a>
+							</div> -->
+						</div>
+					</div>
+					<!-- end sidebar section wrapper -->
+					<div class="sidebar-section-wrapper">
+						<!-- <h3 class="sidebar-section-header">Link Header</h3> -->
+						<!-- <ul class="sidebar-link-list">
+							<li><a href="#">Mozzarella red leicester everyone loves halloumi mascarpone mozzarella brie red leicester.</a></li>
+							<li><a href="#">This is a link</a></li>
+							<li><a href="#">Mozzarella red leicester everyone loves halloumi mascarpone mozzarella brie red leicester.</a></li>
+							<li><a href="#">This is a link</a></li>
+							<li><a href="#">This is a link</a></li>
+							<li><a href="#">This is a link</a></li>
+						</ul> -->
+					</div>
+					<!-- end sidebar section wrapper -->
+				</div>
+				<!-- end sidebar column -->
+			</div>
+		</div>
+
+		
+		{% endblock%}
+		
+		{% block modals %}
+
+		{% endblock%}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>			
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				$('img.lazy').lazy();
+
+				$('.backstretch').each(function(){
+					var bgimg = $(this).data('bgimg');
+					$(this).backstretch(bgimg);
+				});
+
+				$('.product-image').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+
+				$(window).resize(function(){
+					$('.product-image').each(function(){
+						var w = $(this).outerWidth();
+						$(this).css('height', w+'px');
+					});
+				});
+			});
+
+	$(document).ready(function(){
+	
+		$('.lazyYT').lazyYT();
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.home-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+		  </script>
+		{% endblock %}

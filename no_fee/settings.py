@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+DEFAULT_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,6 +37,23 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
+
+THIRD_PARTY_APPS = (
+    'south',
+    'fabric',
+    'taggit',
+    'mptt',
+
+)
+
+LOCAL_APPS = (
+    'articles',
+    'contact',
+    'landing_page',
+)
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,9 +74,19 @@ WSGI_APPLICATION = 'no_fee.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'no_fee',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
+}
+
+# Migration modules for apps
+
+SOUTH_MIGRATION_MODULES = {
+    'taggit': 'taggit.south_migrations',
 }
 
 # Internationalization
@@ -80,3 +107,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    #os.path.join(PROJECT_PATH, "static"),
+    '/Users/rhurst/no_fee/static',
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+
+### TEMPLATES
+
+TEMPLATE_DIRS = (
+    #'/templates', 
+    '/Users/rhurst/no_fee/no_fee/templates',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.contrib.auth.context_processors.auth',
+    'articles.context_processor.get_menu',
+)

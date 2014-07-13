@@ -1,0 +1,113 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="author" content="Ryan Hurst">
+	{% block head %}
+	{% endblock %}
+
+	<!-- Date: 2013-01-30 -->
+	<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css">
+	{% block css %}
+	{% endblock %}
+</head>
+<body id="life-pro-tips">
+  <!-- HEADER -->
+  <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-links">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+                <a class="navbar-brand" href="#LOGO">LPT</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-links">
+                <ul class="nav navbar-nav ">
+                    <li><a href="#about">About</a>
+                    </li>
+                    <li><a href="#services">Services</a>
+                    </li>
+                    <li><a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+  <!-- /HEADER -->
+	{% block sub_header %}
+	{% endblock %}
+	
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>	
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>
+
+
+
+
+
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="author" content="Ryan Hurst">
+    {% block head %}
+    {% endblock %}
+
+    <!-- Date: 2013-01-30 -->
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css">
+    {% block css %}
+    {% endblock %}
+</head>
+<body id="life-pro-tips">
+  <!-- HEADER -->
+  <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-links">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-plus-circle"></i>
+                </button>
+                <a class="navbar-brand" href="#LOGO">LPT</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-links">
+                <ul class="nav navbar-nav ">
+                    <li><a href="#about">About</a>
+                    </li>
+                    <li><a href="#services">Services</a>
+                    </li>
+                    <li><a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+  <!-- /HEADER -->
+    {% block sub_header %}
+    {% endblock %}
+    
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>
+
+

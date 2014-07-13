@@ -1,0 +1,35 @@
+			<div class="row">
+				<div class='container'>			
+					<div id="rhb_container" class="col-sm-12 col-md-12 col-lg-12">
+						<h2 class='big_red_header'>Red Hot Buys</h2>
+						{% for p in products %}
+							{% if forloop.first %}
+								<div class='row'>
+									<div class='container'>
+    						{% endif %}
+							<div class='col-xs-6 col-sm-6 col-md-3 col-lg-3' id='rhb_product{{forloop.counter}}'>
+							  <div class='product'>
+								<a href='{{p.prod_path}}' target='_blank'>
+									<img src='{{p.prod_image_path}}' alt='na'>
+								</a>
+								<div class='prod_name_container'>
+									<p class='prod_name'>{{p.prod_name}}</p>
+								</div>
+								<p class='price'><a href='{{p.prod_path}}' target='_blank'>{{p.prod_price}}</a></p>
+							  </div>
+							</div>
+							{% if forloop.counter|divisibleby:"4" %}
+									</div>
+								</div>
+								<div class='row'>
+									<div class='container'>
+							{% endif %}
+							{% if forloop.last %}
+								</div>
+							</div>
+    						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>	

@@ -1,0 +1,43 @@
+{% load mptt_tags %}
+<div class="content-banner">
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+	<div class="static-banner-wrapper">
+		<!-- End slideshow content wrapper -->	
+		{% with articles.featured|first as ff %}			
+		<div class="slideshow-content-wrapper backstretch" data-bgimg="/media/{{ff.ArticleMedia.BannerImage}}">
+			{% if ff.ParentCategory.CategorySlug in request.path %}
+				<a href="{{ff.Slug}}">
+			{% else %}
+				<a href="{{request.path}}{{ff.ParentCategory.CategorySlug}}/{{ff.Slug}}">
+			{% endif %}
+				<span class="slideshow-text-wrapper">
+					<h2>{{ff.Title}}</h2>
+					<p>{{ff.Subtitle}}</p>
+				</span>
+			</a>
+		</div>
+		{% endwith %}	
+		<!-- End slideshow content wrapper -->
+	</div>
+	<!-- End Slideshow Wrapper -->
+</div>
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	<ul class="content-banner-list">
+		{% for art in articles.featured|slice:"1:" %}
+		<li>
+			<!-- {% if art.ParentCategory.CategorySlug in request.path %}
+				<a class="preview-link-wrapper" href="{{art.Slug}}">
+			{% else %}
+				<a class="preview-link-wrapper" href="{{request.path}}{{art.ParentCategory.CategorySlug}}/{{art.Slug}}">
+			{% endif %} -->
+			<a class="preview-link-wrapper" href="{{ art.ParentCategory.ancestors|tree_path }}{{art.Slug}}">
+				<h3>{{art.Title}}</h3>
+				<p>{{art.Subtitle}}</p>
+			</a>	
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<!-- /col-lg-4 col-md-4 col-sm-12 col-xs-12 -->
+</div>
+<!-- /content-banner -->

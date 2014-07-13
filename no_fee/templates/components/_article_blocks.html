@@ -1,0 +1,44 @@
+{% load mptt_tags %}
+<div class="row">
+{% for a in articles.section %}	
+	{% if a.TweetId %}
+		<div class="article-grid col-lg-3 col-md-3 col-sm-3 col-xs-6">
+			{% if a.ParentCategory.CategorySlug in request.path %}
+				<a href="{{a.Slug}}">
+			{% else %}
+				<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
+			{% endif %}
+			<span class="home-article-image-grid backstretch" data-bgimg="{{a.ArticleMetaImage}}"></span>
+			<h3 class="headline-grid">{{a.DescriptiveTitle}}</h3>
+			</a>
+		</div>
+		<!-- /article grid -->
+		{% if forloop.counter|divisibleby:4 %}
+		</div>
+		<div class="row">
+		{% endif %}
+		{% if forloop.last %}
+		</div>
+		{% endif %}
+	{% else %}
+		<div class="article-grid col-lg-3 col-md-3 col-sm-3 col-xs-6">
+			{% if a.ParentCategory.CategorySlug in request.path %}
+				<a href="{{a.Slug}}">
+			{% else %}
+				<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
+			{% endif %}
+			<span class="home-article-image-grid backstretch" data-bgimg="/media/{{a.ArticleMedia.PreviewImage}}"></span>
+			<h3 class="headline-grid">{{a.Title}}</h3>
+			</a>
+		</div>
+		<!-- /article grid -->
+		{% if forloop.counter|divisibleby:4 %}
+		</div>
+		<div class="row">
+		{% endif %}
+		{% if forloop.last %}
+		</div>
+		{% endif %}
+	{% endif %}
+<!-- /row	 -->
+{% endfor %}
