@@ -1,0 +1,132 @@
+{% load static from staticfiles %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {% block head %}
+    {% endblock %}
+
+    <!-- Date: 2013-01-30 -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,500,700,900,100italic' rel='stylesheet' type='text/css'>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Important Owl stylesheet -->
+    <link rel="stylesheet" href="/static/js/owl-carousel/owl.carousel.css">
+    <!-- Default Theme -->
+    <link rel="stylesheet" href="/static/js/owl-carousel/owl.theme.css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    {% include "components/_header.html" %}
+    {% block sub_header %}
+    {% endblock %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer-list col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h3 class="section-header">Newsletter</h3>
+                    <p>Sign up for updates, insights and other cool stuff!</p>
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="email" class="form-control" id="footer-newsletter-input" placeholder="Email">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default footer-newsletter-button">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>     
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+            </div>
+            <!-- /row    -->
+            <div class="row">
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+                <div class="footer-list col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <ul>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                        <li><a href="#">Footer Link</a></li>
+                    </ul>
+                </div>
+                <!-- /footer-list -->
+            </div>
+            <!-- /row    -->
+        </div>
+        <!-- /container     -->
+    </footer>
+    
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
+<!-- <script src="/static/js/menu.js"></script> -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/lazyYT.min.js"></script>
+<script src="/static/js/jquery.lazy-images.min.js"></script>
+<script src="/static/js/owl-carousel/owl.carousel.min.js"></script>
+<script type="text/javascript">
+    $('#nav').affix({
+      offset: {
+        top: $('header').height()
+      }
+}); 
+</script>
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

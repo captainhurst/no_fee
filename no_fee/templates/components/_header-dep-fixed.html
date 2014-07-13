@@ -1,0 +1,103 @@
+{% load mptt_tags %}
+<!-- HEADER -->
+<header class="masthead">
+  <div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1><a href="#" title="scroll down for your viewing pleasure">Bootstrap 3 Template</a><p class="lead">Top Header and Sticky Navbar</p></h1>
+    </div>
+    <div class="col-sm-6">
+      <div class="pull-right hidden-sm">    
+        <h1><a href="#"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a></h1>
+      </div>
+    </div>
+  </div>
+  </div>
+</header>	  	  	
+  	
+  	
+<!-- Begin Navbar -->
+<div id="nav">
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a href="#" class="navbar-brand">Brand</a>
+      <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="glyphicon glyphicon-bar"></span>
+        <span class="glyphicon glyphicon-bar"></span>
+        <span class="glyphicon glyphicon-bar"></span>
+      </a>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+        <ul class="nav pull-right navbar-nav">
+          <li>
+            <form class="navbar-form">
+              <input type="text" class="form-control" placeholder="Search">
+              <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+          </li>
+          <li>
+            <a href="#"><span class="badge">2</span></a>
+          </li>
+        </ul>
+      </div>		
+    </div>
+  </div><!-- /.navbar -->
+</div>
+
+
+
+<!--     <nav class="nav-wrapper" role="navigation">
+        <div class="top-nav">
+            <div class="container">
+                <div class="prime-wrapper col-xl-2 col-lg-2 col-md-1 col-sm-12 col-xs-12">
+                </div>
+                <div class="logo-wrapper col-xl-8 col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                    <a href="/">The New-York Packet.</a>
+                </div>
+            </div>-->
+             <!-- / container -->
+        <!-- </div> -->
+        <!-- / top nav -->
+<!--         <div class="main-nav">
+            <div class="container">
+                <div class="main-nav-wrapper">
+                    <ul>
+                        {% for h in header %}
+                             {% if h.CategorySlug in request.path %}                        
+                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category active" data-category="{{h.CategorySlug}}">{{h}}</a></li>
+                             {% else %}
+                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category" data-category="{{h.CategorySlug}}">{{h}}</a></li>
+                             {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div> -->
+             <!-- / container -->
+<!--         </div>
+        {% if subnav %}
+        <div class="subnav">
+            <div class="container">
+                <ul>
+                    {% for s in subnav %}
+                        {% if s.CategorySlug in request.path %}   
+                            {% drilldown_tree_for_node s as sc %}
+                            <li class="active"><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% else %}
+                            {% drilldown_tree_for_node s as sc %}
+                            <li><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
+/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
+                            </a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </nav> -->
+  <!-- /HEADER -->

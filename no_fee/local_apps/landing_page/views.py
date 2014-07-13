@@ -32,7 +32,7 @@ def landing(request):
 	#context = {'title': title, 'meta': meta, 'ss': ss_con, 'featured': featured, 'seo': ssc}
 	
 	context = {'title':"rbh.me", 'meta': "This is a blog about me and my thoughts."}
-	return render(request, 'index.html', context) 
+	return render(request, 'base.html', context) 
 	
 # def email_capture(request):
 # 	if request.POST:
