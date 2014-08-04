@@ -15,6 +15,7 @@ from urlparse import urlparse
 from datetime import datetime
 import json as simplejson
 import string
+from contact.forms import ContactForm
 # from articles.models import ArticleCategoryModel, ArticlePageModel
 #from models import LandingPageModel, LandingPageMeta, EmailCaptureModel, LandingImageContentModel, LandingContent
 #from forms import EmailCaptureForm
@@ -30,9 +31,9 @@ def landing(request):
 	#articles = ArticlePageModel.objects.all().order_by("-created_datetime")[:5]
 	#ecForm = EmailCaptureForm()
 	#context = {'title': title, 'meta': meta, 'ss': ss_con, 'featured': featured, 'seo': ssc}
-	
-	context = {'title':"rbh.me", 'meta': "This is a blog about me and my thoughts."}
-	return render(request, 'base.html', context) 
+	contact = ContactForm
+	context = {'title':"rbh.me", 'contact': contact}
+	return render(request, 'index.html', context) 
 	
 # def email_capture(request):
 # 	if request.POST:

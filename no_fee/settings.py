@@ -43,6 +43,8 @@ THIRD_PARTY_APPS = (
     'fabric',
     'taggit',
     'mptt',
+    'django_wysiwyg',
+
 
 )
 
@@ -117,6 +119,9 @@ STATICFILES_DIRS = (
 )
 
 ### TEMPLATES
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + "ckeditor/"
 
 TEMPLATE_DIRS = (
     #'/templates', 

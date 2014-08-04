@@ -8,7 +8,7 @@
     {% endblock %}
 
     <!-- Date: 2013-01-30 -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,500,700,900,100italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Vesper+Libre:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Important Owl stylesheet -->
@@ -21,295 +21,27 @@
     {% endblock %}
 </head>
 <body>
-    <!-- {% block sub_header %} -->
-    <!-- {% endblock %} -->
-    <header id="header">
-    <div id="head" class="parallax" parallax-speed="2">
-        <h1 id="logo" class="text-center">
-          <img class="img-circle" src="//placehold.it/100/cc9999" alt="">
-            <span class="title">Template Title</span>
-            
-        </h1>
-    </div>
-
-    <nav class="navbar navbar-default navbar-sticky">
-        <div class="container-fluid">
-            
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_links"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            </div>
-            
-            <div class="navbar-collapse collapse" id="nav_links">
-                
-                <ul class="nav navbar-nav" >
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="sidebar-left.html">Left Sidebar</a></li>
-                            <li><a href="sidebar-right.html">Right Sidebar</a></li>
-                            <li><a href="single.html">Blog Post</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            
-            </div><!--/.nav-collapse -->            
-        </div>  
-    </nav>
-</header>
-
-<main id="main">
-
-    <div class="container">
-        
-        <div class="row section topspace">
-            <div class="col-md-12">
-                <p class="lead text-center text-muted">Let me tell you something my friend. hope is a dangerous thing. hope can drive a man insane. you <a href="about.html">measure</a> yourself by the people who measure themselves by you. it only took me <a href="sidebar-right.html">six days</a>. </p>
-            </div>
-        </div> <!-- / section -->
-        
-        <div class="row section featured topspace">
-            <h2 class="section-title"><span>Services</span></h2>
-            <div class="row">
-                <div class="col-sm-6 col-md-3">
-                    <h3 class="text-center">Custom website design</h3>
-                    <p>I don't think they tried to market it to the billionaire, spelunking, base-jumping crowd. i did the same thing to gandhi, he didn't eat for three weeks. i once heard a wise man say there are no perfect men.</p>
-                    <p class="text-center"><a href="" class="btn btn-action">Read more</a></p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <h3 class="text-center">Wordpress integration</h3>
-                    <p>I don't think they tried to market it to the billionaire, spelunking, base-jumping crowd. i did the same thing to gandhi, he didn't eat for three weeks. i once heard a wise man say there are no perfect men.</p>
-                    <p class="text-center"><a href="" class="btn btn-action">Read more</a></p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <h3 class="text-center">Application development</h3>
-                    <p>I don't think they tried to market it to the billionaire, spelunking, base-jumping crowd. i did the same thing to gandhi, he didn't eat for three weeks. i once heard a wise man say there are no perfect men.</p>
-                    <p class="text-center"><a href="" class="btn btn-action">Read more</a></p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                    <h3 class="text-center">SEO &amp; SEM services</h3>
-                    <p>I don't think they tried to market it to the billionaire, spelunking, base-jumping crowd. i did the same thing to gandhi, he didn't eat for three weeks. i once heard a wise man say there are no perfect men.</p>
-                    <p class="text-center"><a href="" class="btn btn-action">Read more</a></p>
-                </div>
-            </div>
-        </div> <!-- / section -->
+    {% include "components/_header.html" %}
     
-        <div class="row section recentworks topspace">
-            
-            <h2 class="section-title"><span>Recent Works</span></h2>
-            
-            <div class="thumbnails recentworks row">
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Sample title - big data solutions</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Wordpress</a> | <a href="">Logotype</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Pure ipsum - development services for people</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Wordpress</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Lorem studios - interior and patio design</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Logotype</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Pure ipsum - development services for people</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Wordpress</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-                
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Lorem studios - interior and patio design</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Logotype</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                    <a class="thumbnail" href="#">
-                        <span class="img">
-                            <img src="//placehold.it/640x480" class="img-responsive">
-                            <span class="cover"><span class="more">See details →</span></span>
-                        </span>
-                        <span class="title">Lorem studios - interior and patio design</span>
-                    </a>
-                    <span class="details"><a href="">Web design</a> | <a href="">Logotype</a></span>
-                    <h4></h4>
-                    <p></p>
-                </div>
-            </div>
-
-        </div> <!-- /section -->
-
-        <div class="row section topspace">
-            <div class="panel panel-cta"><div class="panel-body">
-                <div class="col-lg-8">
-                    <p>A simple, nice-looking <b>call to action box</b>. Boxing is about respect. getting it for yourself, 
-                    and taking it away from the other guy. no, this is mount everest. </p>
-                </div>
-                <div class="col-lg-4 text-right">
-                    <a href="http://www.gettemplate.com/downloads/initio.zip " class="btn btn-primary btn-download btn-lg">Download template</a>
-                </div>
-            </div></div>
-        </div> <!-- /section -->
-
-        <div class="row section clients topspace">
-            <h2 class="section-title"><span>Clients</span></h2>
-            <div class="col-lg-12">
-                <p>
-                    <img src="assets/images/sample_clients.png" alt="">
-                </p>
-            </div>
-        </div> <!-- /section -->
-
-    </div>  <!-- /container -->
-
-</main>
-
-<footer id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 widget">
-                <h3 class="widget-title">Contact</h3>
-                <div class="widget-body">
-                    <p>+011 67 9403903<br>
-                        <a href="mailto:#">someone@somewhere.com</a><br>
-                        <br>
-                        100 Park Ave, New York, NY 12332
-                    </p>    
-                </div>
-            </div>
-
-            <div class="col-md-3 widget">
-                <h3 class="widget-title">Follow me</h3>
-                <div class="widget-body">
-                    <p class="follow-me-icons">
-                        <a href=""><i class="fa fa-twitter fa-2"></i></a>
-                        <a href=""><i class="fa fa-dribbble fa-2"></i></a>
-                        <a href=""><i class="fa fa-github fa-2"></i></a>
-                        <a href=""><i class="fa fa-facebook fa-2"></i></a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-3 widget">
-                <h3 class="widget-title">Text widget</h3>
-                <div class="widget-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, nihil natus explicabo ipsum quia iste aliquid repellat eveniet velit ipsa sunt libero sed aperiam id soluta officia asperiores adipisci maxime!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, nihil natus explicabo ipsum quia iste aliquid repellat eveniet velit ipsa sunt libero sed aperiam id soluta officia asperiores adipisci maxime!</p>
-                </div>
-            </div>
-
-            <div class="col-md-3 widget">
-                <h3 class="widget-title">Form widget</h3>
-                <div class="widget-body">
-                    <p>+011 67 9403903<br>
-                        
-                    </p>    
-                </div>
-            </div>
-
-        </div> <!-- /row of widgets -->
-    </div>
-</footer>
-
-<footer id="underfooter">
-    <div class="container">
-        <div class="row">
-            
-            <div class="col-md-6 widget">
-                <div class="widget-body">
-                    <p>Left side </p>
-                </div>
-            </div>
-
-            <div class="col-md-6 widget">
-                <div class="widget-body">
-                    <p class="text-right">
-                        Copyright © 2014, Your awesome name here<br> 
-                        Design: <a href="http://www.bootply.com" rel="designer">Bootply</a> </p>
-                </div>
-            </div>
-
-        </div> <!-- /row of widgets -->
-    </div>
-</footer>
+    <div id="main-content">    
+    {% block sub_header %}
+    {% endblock %}
 
 
+
+{% include "components/_footer.html" %}
     
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
-<!-- <script src="/static/js/menu.js"></script> -->
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/lazyYT.min.js"></script>
-<script src="/static/js/jquery.lazy-images.min.js"></script>
-<!-- <script src="/static/js/owl-carousel/owl.carousel.min.js"></script> -->
-<script type="text/javascript">
-    var my_nav = $('.navbar-sticky'); 
-    // grab the initial top offset of the navigation 
-    var sticky_navigation_offset_top = my_nav.offset().top;
-    
-    // our function that decides weather the navigation bar should have "fixed" css position or not.
-    var sticky_navigation = function(){
-        var scroll_top = $(window).scrollTop(); // our current vertical position from the top
-        
-        // if we've scrolled more than the navigation, change its position to fixed to stick to top, otherwise change it back to relative
-        if (scroll_top > sticky_navigation_offset_top) { 
-            my_nav.addClass( 'stick' );
-        } else {
-            my_nav.removeClass( 'stick' );
-        }   
-    };
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>   -->
+<script src="/static/js/globals.js"></script>
+<script>
 
-    
-    // run our function on load
-    sticky_navigation();
-    
-    // and run it again every time you scroll
-    $(window).scroll(function() {
-         sticky_navigation();
+    $(document).ready(function(){
+        $('.backstretch').each(function(){
+            var bgimg = $(this).data('bgimg');
+            $(this).backstretch(bgimg);
+        });
     });
+
 </script>
 {% block extra_js %}
 {% endblock %}

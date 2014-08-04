@@ -1,44 +1,96 @@
 {% load mptt_tags %}
-<div class="row">
-{% for a in articles.section %}	
-	{% if a.TweetId %}
-		<div class="article-grid col-lg-3 col-md-3 col-sm-3 col-xs-6">
-			{% if a.ParentCategory.CategorySlug in request.path %}
-				<a href="{{a.Slug}}">
-			{% else %}
-				<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
-			{% endif %}
-			<span class="home-article-image-grid backstretch" data-bgimg="{{a.ArticleMetaImage}}"></span>
-			<h3 class="headline-grid">{{a.DescriptiveTitle}}</h3>
-			</a>
-		</div>
-		<!-- /article grid -->
-		{% if forloop.counter|divisibleby:4 %}
-		</div>
-		<div class="row">
-		{% endif %}
-		{% if forloop.last %}
-		</div>
-		{% endif %}
-	{% else %}
-		<div class="article-grid col-lg-3 col-md-3 col-sm-3 col-xs-6">
-			{% if a.ParentCategory.CategorySlug in request.path %}
-				<a href="{{a.Slug}}">
-			{% else %}
-				<a href="{{request.path}}{{a.ParentCategory.CategorySlug}}/{{a.Slug}}">
-			{% endif %}
-			<span class="home-article-image-grid backstretch" data-bgimg="/media/{{a.ArticleMedia.PreviewImage}}"></span>
-			<h3 class="headline-grid">{{a.Title}}</h3>
-			</a>
-		</div>
-		<!-- /article grid -->
-		{% if forloop.counter|divisibleby:4 %}
-		</div>
-		<div class="row">
-		{% endif %}
-		{% if forloop.last %}
-		</div>
-		{% endif %}
-	{% endif %}
-<!-- /row	 -->
-{% endfor %}
+    <!-- Container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2 class="section-spacer"><span>Articles</span></h2>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <a href="#" class="article-wrapper">
+                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                    </div>
+                    <div class="article-headline-wrapper">
+                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <p class="preview-text">
+                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        </p>
+        
+                    </div>
+                </a>
+            </div>
+            <!-- Article Wrapper -->
+
+        </div>
+        <!-- /Row -->
+    </div>
+    <!-- Container -->

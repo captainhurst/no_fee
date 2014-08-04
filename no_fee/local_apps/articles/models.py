@@ -28,41 +28,16 @@ class Category(MPTTModel):
 
 
 class ArticleMedia(models.Model):
-	BANNER_CHOICES = (
-		('video', 'Video Lead'),
-		('image', 'Image Lead'),
-		( False, 'No Media'),		
-		)
-	SlideshowType = models.CharField(max_length=30,choices=BANNER_CHOICES)
-	BannerImage = models.ImageField(upload_to='banner', null=True, blank=True)
-	BannerImageAsUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
-	BannerImageTitle = models.CharField(max_length=255,null=True, blank=True, default=None)
-	BannerImageText = models.CharField(max_length=255,null=True, blank=True, default=None)
-	BannerImageSource = models.CharField(max_length=255, null=True, blank=True, default=None)
-	BannerImageSourceUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
 	YouTubeId = models.CharField(max_length=255,null=True, blank=True, default=None)
-	PreviewImage = models.ImageField(upload_to='artcle_preview', null=True, blank=True)
-	PreviewImageAsUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
-	PreviewImageSource = models.CharField(max_length=255, null=True, blank=True, default=None)
-	PreviewImageSourceUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
 	ArticleImage = models.ImageField(upload_to='article', null=True, blank=True)
 	ArticleImageAsUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
 	ArticleImageSource = models.CharField(max_length=255, null=True, blank=True, default=None)
 	ArticleImageSourceUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
-	SocialImage = models.ImageField(upload_to='meta', null=True, blank=True)
-	SocialImageAsUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
+	ArticleMediaName = models.CharField(max_length=140, null=True, blank=True, default=None)
 
 	def __unicode__(self):
-		return u'%s | %s' % (self.BannerImageTitle, self.BannerImageTitle)
+		return u'%s | %s' % (self.ArticleImage, self.ArticleImageSource)
 
-class FeaturedProduct(models.Model):
-	IsCategoryDefault = models.BooleanField()
-	ProductImage = models.ImageField(upload_to='product')
-	ProductName = models.CharField(max_length=255, null=True, blank=True, default=None)
-	AffiliateLink = models.CharField(max_length=255, null=True, blank=True, default=None)
-
-	def __unicode__(self):
-		return u'%s' % (self.ProductName)
 
 class Article(models.Model):
 	Author = models.ForeignKey(User)
@@ -76,7 +51,6 @@ class Article(models.Model):
 	Subtitle = models.CharField(max_length=255, null=True, blank=True, default=None)
 	ArticleText = models.TextField(null=True, blank=True, default=None)
 	ArticleMedia = models.ForeignKey(ArticleMedia)
-	FeaturedProducts = models.ManyToManyField(FeaturedProduct)
 	ParentCategory = models.ForeignKey(Category)
 	Slug = models.SlugField(max_length=255)
 	FeaturedArticle = models.ManyToManyField('self', through='FeaturedArticle', symmetrical=False, related_name='article')
@@ -89,18 +63,6 @@ class Article(models.Model):
 		unique_together = ('Slug', 'ParentCategory')
 		ordering = ['-DraftTime']
 
-class SlideshowBanner(models.Model):
-	SlideshowBannerName = models.CharField(max_length=80, null=True, blank=True, default=None)
-	ParentCategory = models.ForeignKey(Category, null=True, blank=True)
-	SLIDESHOW_CHOICES = (
-		('banner', 'Banner Only'),
-		('featured', 'Banner w/Features'),		
-		)
-	SlideshowType = models.CharField(max_length=30,choices=SLIDESHOW_CHOICES)
-	SlideshowArticles = models.ManyToManyField(Article)		
-
-	def __unicode__(self):
-		return u'%s' % (self.SlideshowBannerName)
 
 class FeaturedArticle(models.Model):
 	ArticleSelf = models.ForeignKey(Article, related_name='the_article_itself')

@@ -1,53 +1,42 @@
 {% load mptt_tags %}
   <!-- HEADER -->
-    <nav class="nav-wrapper" role="navigation">
-        <div class="top-nav">
-            <div class="container">
-                <div class="prime-wrapper col-xl-2 col-lg-2 col-md-1 col-sm-12 col-xs-12">
-                </div>
-                <div class="logo-wrapper col-xl-8 col-lg-8 col-md-10 col-sm-12 col-xs-12">
-                    <a href="/">The New-York Packet.</a>
-                </div>
-            </div>
-             <!-- / container -->
+
+
+  <header>
+    <div class="bg-overlay">
+        <div class="container center-text">
+            <span class="header-logo center-text">NoFeeOC</span>
+            <br>
+            <span class="subheader center-text">Real Estate For Orange County's Smartest Buyers</span>
         </div>
-        <!-- / top nav -->
-        <div class="main-nav">
-            <div class="container">
-                <div class="main-nav-wrapper">
-                    <ul>
-                        {% for h in header %}
-                             {% if h.CategorySlug in request.path %}                        
-                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category active" data-category="{{h.CategorySlug}}">{{h}}</a></li>
-                             {% else %}
-                             <li><a href="/{{h.CategorySlug}}/" class="js-main-category" data-category="{{h.CategorySlug}}">{{h}}</a></li>
-                             {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-             <!-- / container -->
+    </div>
+  </header>
+  <nav class="navbar custom-navbar" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-nav-collapsed"> 
+                <span class="sr-only">Toggle navigation</span> <span class="fa fa-compass"></span> 
+            </button>
+          <!-- <a class="navbar-brand" href="#">Brand</a> -->
         </div>
-        {% if subnav %}
-        <div class="subnav">
-            <div class="container">
-                <ul>
-                    {% for s in subnav %}
-                        {% if s.CategorySlug in request.path %}   
-                            {% drilldown_tree_for_node s as sc %}
-                            <li class="active"><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
-/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
-                            </a></li>
-                        {% else %}
-                            {% drilldown_tree_for_node s as sc %}
-                            <li><a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%else%}
-/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{s.CategorySlug}}" class="js-subnav-category" >{{s.CategoryName}}
-                            </a></li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
-    </nav>
-  <!-- /HEADER -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="header-nav-collapsed">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Contact</a></li>
+            <li class="active"><a href="#">About</a></li>
+            <li><a href="#">Why NoFeeOC</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tips <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Buying</a></li>
+                <li><a href="#">Selling</a></li>
+                <li><a href="#">Tips</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+</nav>

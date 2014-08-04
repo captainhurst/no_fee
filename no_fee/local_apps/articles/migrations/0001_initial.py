@@ -46,16 +46,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'articles', ['ArticleMedia'])
 
-        # Adding model 'FeaturedProduct'
-        db.create_table(u'articles_featuredproduct', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('IsCategoryDefault', self.gf('django.db.models.fields.BooleanField')()),
-            ('ProductImage', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('ProductName', self.gf('django.db.models.fields.CharField')(default=None, max_length=255, null=True, blank=True)),
-            ('AffiliateLink', self.gf('django.db.models.fields.CharField')(default=None, max_length=255, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'articles', ['FeaturedProduct'])
-
         # Adding model 'Article'
         db.create_table(u'articles_article', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -78,33 +68,6 @@ class Migration(SchemaMigration):
         # Adding unique constraint on 'Article', fields ['Slug', 'ParentCategory']
         db.create_unique(u'articles_article', ['Slug', 'ParentCategory_id'])
 
-        # Adding M2M table for field FeaturedProducts on 'Article'
-        m2m_table_name = db.shorten_name(u'articles_article_FeaturedProducts')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('article', models.ForeignKey(orm[u'articles.article'], null=False)),
-            ('featuredproduct', models.ForeignKey(orm[u'articles.featuredproduct'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['article_id', 'featuredproduct_id'])
-
-        # Adding model 'SlideshowBanner'
-        db.create_table(u'articles_slideshowbanner', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('SlideshowBannerName', self.gf('django.db.models.fields.CharField')(default=None, max_length=80, null=True, blank=True)),
-            ('ParentCategory', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['articles.Category'], null=True, blank=True)),
-            ('SlideshowType', self.gf('django.db.models.fields.CharField')(max_length=30)),
-        ))
-        db.send_create_signal(u'articles', ['SlideshowBanner'])
-
-        # Adding M2M table for field SlideshowArticles on 'SlideshowBanner'
-        m2m_table_name = db.shorten_name(u'articles_slideshowbanner_SlideshowArticles')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('slideshowbanner', models.ForeignKey(orm[u'articles.slideshowbanner'], null=False)),
-            ('article', models.ForeignKey(orm[u'articles.article'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['slideshowbanner_id', 'article_id'])
-
         # Adding model 'FeaturedArticle'
         db.create_table(u'articles_featuredarticle', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -124,20 +87,8 @@ class Migration(SchemaMigration):
         # Deleting model 'ArticleMedia'
         db.delete_table(u'articles_articlemedia')
 
-        # Deleting model 'FeaturedProduct'
-        db.delete_table(u'articles_featuredproduct')
-
         # Deleting model 'Article'
         db.delete_table(u'articles_article')
-
-        # Removing M2M table for field FeaturedProducts on 'Article'
-        db.delete_table(db.shorten_name(u'articles_article_FeaturedProducts'))
-
-        # Deleting model 'SlideshowBanner'
-        db.delete_table(u'articles_slideshowbanner')
-
-        # Removing M2M table for field SlideshowArticles on 'SlideshowBanner'
-        db.delete_table(db.shorten_name(u'articles_slideshowbanner_SlideshowArticles'))
 
         # Deleting model 'FeaturedArticle'
         db.delete_table(u'articles_featuredarticle')
@@ -151,7 +102,6 @@ class Migration(SchemaMigration):
             'Description': ('django.db.models.fields.TextField', [], {'default': 'None', 'max_length': '300', 'null': 'True', 'blank': 'True'}),
             'DraftTime': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'FeaturedArticle': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'article'", 'symmetrical': 'False', 'through': u"orm['articles.FeaturedArticle']", 'to': u"orm['articles.Article']"}),
-            'FeaturedProducts': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['articles.FeaturedProduct']", 'symmetrical': 'False'}),
             'Meta': {'ordering': "['-DraftTime']", 'unique_together': "(('Slug', 'ParentCategory'),)", 'object_name': 'Article'},
             'ParentCategory': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['articles.Category']"}),
             'PublishTime': ('django.db.models.fields.DateTimeField', [], {}),
@@ -201,22 +151,6 @@ class Migration(SchemaMigration):
             'ArticleIn': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'an_attached_featured_article'", 'to': u"orm['articles.Article']"}),
             'ArticleSelf': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'the_article_itself'", 'to': u"orm['articles.Article']"}),
             'Meta': {'object_name': 'FeaturedArticle'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'articles.featuredproduct': {
-            'AffiliateLink': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'IsCategoryDefault': ('django.db.models.fields.BooleanField', [], {}),
-            'Meta': {'object_name': 'FeaturedProduct'},
-            'ProductImage': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'ProductName': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'articles.slideshowbanner': {
-            'Meta': {'object_name': 'SlideshowBanner'},
-            'ParentCategory': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['articles.Category']", 'null': 'True', 'blank': 'True'}),
-            'SlideshowArticles': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['articles.Article']", 'symmetrical': 'False'}),
-            'SlideshowBannerName': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '80', 'null': 'True', 'blank': 'True'}),
-            'SlideshowType': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'auth.group': {

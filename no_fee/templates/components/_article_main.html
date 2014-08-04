@@ -1,0 +1,33 @@
+{% load mptt_tags %}
+<div class="title-wrapper">
+    <h1>{{page.Title}}</h1>
+    {% if page.Subtitle %}
+        <p>{{page.Subtitle}}</p>
+    {% endif %}
+</div>
+{% if page.ArticleMedia.ArticleImage %}
+<div class="lead-image-wrapper">
+    <img class="lazy" data-src="/media/{{page.ArticleMedia.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+</div>
+{% elif page.ArticleMedia.ArticleImageAsUrl %}
+    <div class="lead-image-wrapper">
+        <img class="lazy" data-src="{{page.ArticleMedia.ArticleImageAsUrl}}" src="" alt="&nbsp;" style=""/>
+    </div>  
+    {% if page.ArticleMedia.ArticleImageSource %}
+    <div><a href="{{page.ArticleMedia.ArticleImageSourceUrl}}"><small>{{page.ArticleMedia.ArticleImageSource}}</small></a></div>
+    {% endif %}
+{% elif page.ArticleMedia.YouTubeId %}
+<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ page.ArticleMedia.YouTubeId }}" data-width="100%" data-height="500">
+</div>
+{% endif %}
+<div class="time-author-wrapper">
+    <p>
+        <a href="/author/{{page.Author.first_name}}-{{page.Author.last_name}}" class="author">{{page.Author.first_name}} {{page.Author.last_name}}</a> 
+        <span class="pipe-margin">|</span> <span class="date">{{page.PublishTime}}</span>
+    </p>
+</div>
+<article class='article-text-wrapper'>
+    {% autoescape off %}
+    {{page.ArticleText}}
+    {% endautoescape %}
+</article>

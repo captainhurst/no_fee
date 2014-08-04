@@ -1,0 +1,50 @@
+{% load mptt_tags %}
+    <section id="contact-widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2 class="section-title"><span>Contact Us</span></h2>
+                </div>
+                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2 class="section-spacer"><span>Contact Us</span></h2>
+                </div> -->
+                  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="contact-context-wrapper">
+                        <h2 class="inverse-headline"></h2>
+                        <div class="smart-buyer-wrapper">
+                            <p>Before you contact us, please make sure you are a smart buyer.  Here are some signs of a smart buyer:</p>
+                            <ol>
+                                <li>You have read the information on this website</li>
+                                <li>You have a home or a few specific homes in mind and have already attempted to review pictures and other details online</li>
+                                <li>You know your own financial limits and you feel like you can afford the homes you are considering</li>
+                                <li>You understand that you have no obligation toward us whatsoever until you ask us to submit an offer for you.</li>
+                                <li>You have other questions that you want us to answer and you remain somewhat skeptical that we really can save you tens of thousands of dollars while offering you superior representation.  (We are excited to answer your questions and prove our ability to save you money)</li>
+                            </ol>
+
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                      <form role="form" action="/contact/" method="post">
+                          {% csrf_token %}
+                        <div class="form-group">
+                          <label for="email-address">Email address</label>
+                          {{contact.sender}}
+                        </div>
+                        <div class="form-group">
+                          <label for="subject">Subject</label>
+                          {{contact.subject}}
+                        </div>
+                        <div class="form-group">
+                          <label for="message">Message</label>
+                          {{ contact.message }}
+                        </div>
+              
+                        <button type="submit" class="btn btn-lg full-width-contact-button">Send</button>
+                      </form>
+                  </div>
+                </div>
+                <!-- / row -->
+            </div>
+            <!-- container   -->
+    </section>
