@@ -3,7 +3,8 @@ import pprint
 
 
 def get_menu(request):
-	cats = Category.objects.filter(level=0)#.prefetch_related('subs')
+	# cats = Category.objects.filter(level=0)#.prefetch_related('subs')
+	cats = Category.objects.all()
 	# print cats
 	# for c in cats:
 	# 	pprint.pprint(c)
@@ -14,4 +15,4 @@ def get_menu(request):
 			# pprint.pprint(s)
 
 	# print cats.subs__set
-	return {'header': cats }
+	return {'nodes': cats }

@@ -20,6 +20,30 @@ class Category(MPTTModel):
 		order_insertion_by = ['CategoryName']
 		parent_attr = 'ParentCategory'
 
+	def get_absolute_url(self):
+		print self
+		url = "/%s/" % self.CategorySlug
+		print url
+		# num = self.get_descendant_count()
+		# print u"number: %s" (num)
+		page = self.get_ancestors(ascending=True, include_self=False)
+
+		# print len(page)
+		# if len(page) > 0:
+		# 	print self.CategorySlug
+		print page
+		# if len(page) > 1:
+		for x in page:
+			url = "/%s%s" % ( x.CategorySlug, url)
+
+			# print x.CategorySlug
+			# print self
+			
+			# page = page.ParentCategory
+			# print url
+		return url
+
+
 	def __unicode__(self):
 		return u'%s' % (self.CategoryName)
 	
