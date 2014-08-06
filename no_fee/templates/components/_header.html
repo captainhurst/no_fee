@@ -24,10 +24,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="header-nav-collapsed">
           <ul class="nav navbar-nav">
+            <li><a href="{% url 'landing_page.views.landing' %}">Home</a></li>
             <li><a href="#">Contact</a></li>
-            <li class="active"><a href="#">About</a></li>
-            <li><a href="#">Why NoFeeOC</a></li>
-            <li><a href="#">FAQ</a></li>
+            {% for c in corp %}
+            <li><a href="/company/{{c.PageSlug}}">{{c.PageName}}</a></li>
+            {% endfor %}
+            <!-- <li class="active"><a href="#">About</a></li>
+            <li><a href="#">Why NoFeeOC</a></li> -->
+            <li><a href="{% url 'faqs.views.faq_page' %}">FAQ</a></li>
             {% full_tree_for_model articles.Category.get_root as category %}
             {% for c in category %}
               {% if c.is_root_node %}

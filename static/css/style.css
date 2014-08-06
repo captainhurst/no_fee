@@ -824,6 +824,55 @@ article p,
   background-color: #EFEFEF;
 }
 
+/*********************************************************************
+ 
+
+                                FAQs
+
+
+**********************************************************************/
+
+#faqs p.question{
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+#faqs p{
+  font-size: 16px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.faq-wrapper{
+  clear: both;
+  margin-bottom: 30px;
+}
+
+.faq-toggle-wrapper{
+  width: 20px;
+  float: left;
+  margin-top: 0px;
+}
+
+.faq-toggle-wrapper a{
+  font-size: 20px;
+  color: #435A66;
+}
+
+.faq-toggle-wrapper a:hover,
+.faq-toggle-wrapper a.active{
+  color: #999;
+}
+
+.faq-content-wrapper{
+  width: 90%;
+  float: right;
+}
 
 
 /*********************************************************************

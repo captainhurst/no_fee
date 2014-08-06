@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+		{% block head %}
+			<meta charset="utf-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		    <meta name="description" content="{{page.metaDescription}}">
+		    <meta name="author" content="{{page.author}}">
+			<meta name="keywords" content="{{page.metaKeywords}}">
+
+		    <title>{{page.titleTag}}</title>
+
+			<!--Facebook Meta Tags-->
+			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:type” content="article"/>
+			<meta property=”og:image” content=””/>
+			<meta property=”og:url” content=”{{request.path}}”/>
+			<meta property=”og:description” content=”{{page.metaDescription}}”/>
+			<meta property=”og:website” content=””/>
+
+			<!--Twitter Meta Tags-->
+			<meta name=”twitter:card” content=”summary”>
+			<meta name=”twitter:url” content=”{{request.path}}”>
+			<meta name=”twitter:title” content="{{page.titleTag}}">
+			<meta name=”twitter:description” content="{{page.metaDescription}}">
+			<meta name=”twitter:image” content=””>
+		{% endblock %}
+
+		{% block css %}
+			
+		{% endblock %}
+
+		{% block sub_header %}
+		<div class="main-content-container article-list">
+			<section id="faqs">
+				<div class="container">
+					<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+					<h1>{{page.PageName}}</h1>
+					{% autoescape off %}
+					{{page.PageContentAsHTML}}
+					{% endautoescape %}
+					</div>
+					<!-- / col lg 8 -->
+				<div class="sidebar-column col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					<div class="sidebar-section-wrapper">
+						{% if articles.featured %}
+						
+						<h3 class="section-header">
+							Featured Articles
+						</h3>
+						<!-- Featured Articles:  -->
+						<div class="sidebar-article-block">
+							{% for r in articles.featured %}
+								<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+									{% drilldown_tree_for_node r.ParentCategory as sc %}
+									<a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%elif r.ParentCategory.CategorySlug == sub_cat.CategorySlug %}{%else%}
+					/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{r.ParentCategory.CategorySlug}}/{{r.Slug}}">
+										{% if r.ArticleMedia.ArticleImage %}
+										<img class="lazy" data-src="/media/{{r.ArticleMedia.ArticleImage }}" src="" alt="&nbsp;">
+										{% elif r.ArticleMedia.ArticleImageAsUrl %}
+										<img class="lazy" data-src="{{r.ArticleMedia.ArticleImageAsUrl  }}" src="" alt="&nbsp;">
+										{% endif %}
+										<h5>{{ r.Title}}</h5>
+									</a>
+								</div>
+							{% endfor %}
+						{% endif %}	
+						</div>
+					</div>
+				</div>
+				<!-- end sidebar column -->
+				</div>
+				<!-- /container -->
+			</section>
+		</div>
+			
+		{% endblock %}
+		
+		
+		{% block modals %}
+
+		{% endblock %}
+		
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>	
+<script>
+	$(document).ready(function(){
+		$('.backstretch').each(function(){
+			var bgimg = $(this).data('bgimg');
+			$(this).backstretch(bgimg);
+		});
+		$('img.lazy').lazy({
+			onFinishedAll: function() {
+            // after Lazy has loaded all images this function will be called once
+            	sameHeight(".sidebar-image-article-wrapper");	
+        }
+		});
+
+		$('.backstretch').each(function(){
+			var bgimg = $(this).data('bgimg');
+			$(this).backstretch(bgimg);
+		});
+		
+		$('.faq-toggler').click(function(){
+			$clicked = $(this);
+			$conParent = $clicked.parents('.faq-toggle-wrapper').siblings('.faq-content-wrapper');
+			if($clicked.hasClass('active')){
+				$conParent.children('.answer').slideUp(100);
+				$clicked.children('.fa').removeClass('fa-chevron-up');
+				$clicked.children('.fa').addClass('fa-chevron-down');
+				$clicked.removeClass('active');
+			}else{
+				$conParent.children('.answer').slideDown(100);
+				$clicked.children('.fa').removeClass('fa-chevron-down');
+				$clicked.children('.fa').addClass('fa-chevron-up');
+				$clicked.addClass('active');
+
+			}
+		});
+
+
+		$(window).resize(function(){
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.list-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 100 );
+			
+		});
+	});
+</script>
+		{% endblock %}
