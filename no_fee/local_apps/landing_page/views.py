@@ -16,7 +16,8 @@ from datetime import datetime
 import json as simplejson
 import string
 from contact.forms import ContactForm
-# from articles.models import ArticleCategoryModel, ArticlePageModel
+from models import LandingPageLead, BannerMedia
+from articles.models import Article
 #from models import LandingPageModel, LandingPageMeta, EmailCaptureModel, LandingImageContentModel, LandingContent
 #from forms import EmailCaptureForm
 
@@ -31,8 +32,11 @@ def landing(request):
 	#articles = ArticlePageModel.objects.all().order_by("-created_datetime")[:5]
 	#ecForm = EmailCaptureForm()
 	#context = {'title': title, 'meta': meta, 'ss': ss_con, 'featured': featured, 'seo': ssc}
+	articles = Article.objects.all()[:12]
+	lead = LandingPageLead.objects.filter(isLive=True)[0]
+	banner = BannerMedia.objects.filter(isLive=True).latest('id')
 	contact = ContactForm
-	context = {'title':"rbh.me", 'contact': contact}
+	context = {'title':"rbh.me", 'contact': contact, 'banner': banner, 'lead': lead, 'articles': articles }
 	return render(request, 'index.html', context) 
 	
 # def email_capture(request):

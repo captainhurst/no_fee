@@ -39,9 +39,13 @@
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 widget">
                 <h3 class="widget-title"></h3>
                 <div class="widget-body">
-                    <p> <br>
-                        
-                    </p>    
+                    <ul>
+                        <li><a href="{% url 'landing_page.views.landing' %}">Home</a></li>
+                        <li><a href="{% url 'contact.views.contact' %}">Contact</a></li>
+                    {% for c in corp %}
+                        <li><a href="/company/{{c.PageSlug}}">{{c.PageName}}</a></li>
+                    {% endfor %}    
+                    </ul>    
                 </div>
             </div>
 
@@ -55,7 +59,7 @@
             
             <div class="col-md-6 widget">
                 <div class="widget-body">
-                    <p></p>
+                    <p><a href="#">Sitemap</a></p>
                 </div>
             </div>
 

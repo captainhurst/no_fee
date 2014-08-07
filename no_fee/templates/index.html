@@ -33,17 +33,26 @@
         <div class="container">
         <div class="row">
 	            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                <div class="lead-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+	            	{% if banner.BannerImage %}
+	                <div class="lead-image backstretch" data-bgimg="/media/{{banner.BannerImage}}">
 	                </div>
+	                {% elif banner.BannerImageAsUrl%}
+	                <div class="lead-image backstretch" data-bgimg="{{banner.BannerImageAsUrl}}">
+	                </div>
+	                <div class="small-banner-credit-wrapper"><a href="{{banner.BannerImageSourceUrl}}" target="_BLANK">Photo by: {{banner.BannerImageSourceName}}</a></div>
+	                {% else %}
+	                <div class="lead-image backstretch" data-bgimg="{{banner.BannerImage}}">
+	                </div>
+	                {% endif %}
 	            </div>
 
 	            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	                <h2 class="section-title"><span>Welcome to NoFeeOC</span></h2>
+	                <h2 class="section-title"><span>{{lead.LeadTitle}}</span></h2>
 	            </div>
 	            <!-- lead column -->
 	            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	                <p class="intro">
-	                    Welcome to NoFeeOC, where you get better assistance on your Southern California home purchase WITHOUT having to deal with real estate agents or their expensive fees.  We are committed to providing you with superior representation at a small fraction of the cost AND you make no commitment to our site or our company unless and until you decide to officially submit an offer on a property. 
+	                    {{lead.LeadContent}}
 	                </p>
 	            </div>
 	            <!-- lead text column -->
@@ -52,7 +61,7 @@
 	    </div>
 
 	    <section id="articles">
-	        {% include "components/_article_blocks.html" %}
+	    	{% include "components/_article_blocks.html" %}
 	    </section>
 
 	    {% include "components/_contact_block.html" %}

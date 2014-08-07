@@ -31,7 +31,8 @@ def faq_page(request):
 	articles = Article.objects.all().order_by('-PublishTime')
 	articles.featured = list(articles.filter(isFeatured=True).order_by('-PublishTime'))[0:6]
 	faqs = FAQ.objects.all().order_by('Rank')
-	context = {'faqs': faqs, 'articles': articles }
+	contact = ContactForm
+	context = {'faqs': faqs, 'articles': articles, 'contact': contact }
 	return render(request, 'faqs.html', context)	
 
 

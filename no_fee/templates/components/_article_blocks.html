@@ -5,92 +5,48 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h2 class="section-spacer"><span>Articles</span></h2>
             </div>
+            {% for a in articles %}
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
+                <a href="{{a.ParentCategory.get_absolute_url}}{{a.Slug}}" class="article-wrapper">
+                    {% if a.ArticleMedia.ArticleImage %}
+                    <div class="article-image backstretch" data-bgimg="/media/{{a.ArticleMedia.ArticleImage}}">
+                    {% elif a.ArticleMedia.ArticleImageAsUrl %}
+                    <div class="article-image backstretch" data-bgimg="{{a.ArticleMedia.ArticleImageAsUrl}}">
+                    {% else %}
+                    <div class="article-image backstretch" data-bgimg="/media/">                    
+                    {% endif %}
                     </div>
                     <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
+                        <h3>{{a.Title}}</h3>
                         <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
+                        {% autoescape off %}
+                            {{a.ArticleText|striptags|truncatewords:20}}
+                        {% endautoescape %}
                         </p>
         
                     </div>
                 </a>
             </div>
             <!-- Article Wrapper -->
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
-                    </div>
-                    <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
-                        <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
-                        </p>
-        
-                    </div>
-                </a>
-            </div>
-            <!-- Article Wrapper -->
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
-                    </div>
-                    <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
-                        <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
-                        </p>
-        
-                    </div>
-                </a>
-            </div>
-            <!-- Article Wrapper -->
-             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
-                    </div>
-                    <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
-                        <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
-                        </p>
-        
-                    </div>
-                </a>
-            </div>
-            <!-- Article Wrapper -->
-             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
-                    </div>
-                    <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
-                        <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
-                        </p>
-        
-                    </div>
-                </a>
-            </div>
-            <!-- Article Wrapper -->
-             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <a href="#" class="article-wrapper">
-                    <div class="article-image backstretch" data-bgimg="/static/resources/header/laguna-niguel-beach.jpg">
-                    </div>
-                    <div class="article-headline-wrapper">
-                        <h3>Why To Avoid Real Estate Agents</h3>
-                        <p class="preview-text">
-                            If you are someone who has no idea where you want to live, no access to the internet, no ability to determine your own price range...
-                        </p>
-        
-                    </div>
-                </a>
-            </div>
-            <!-- Article Wrapper -->
+            {% endfor %}
 
         </div>
         <!-- /Row -->
     </div>
     <!-- Container -->
+
+
+    {% for r in page.recent %}
+        <div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+            {% drilldown_tree_for_node r.ParentCategory as sc %}
+            <a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%elif r.ParentCategory.CategorySlug == sub_cat.CategorySlug %}{%else%}
+/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{r.ParentCategory.CategorySlug}}/{{r.Slug}}">
+                {% if r.ArticleMedia.ArticleImage %}
+                <img class="lazy" data-src="/media/{{r.ArticleMedia.ArticleImage }}" src="" alt="&nbsp;">
+                {% elif r.ArticleMedia.ArticleImageAsUrl %}
+                <img class="lazy" data-src="{{r.ArticleMedia.ArticleImageAsUrl  }}" src="" alt="&nbsp;">
+                {% endif %}
+                <h5>{{ r.Title}}</h5>
+            </a>
+        </div>
+    {% endfor %}

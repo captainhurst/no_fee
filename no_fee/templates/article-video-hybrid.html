@@ -66,9 +66,8 @@
 				<div class="sidebar-column col-lg-4 col-md-4 col-sm-12 col-xs-12">
 					<div class="sidebar-section-wrapper">
 						{% if page.recent %}
-						<h3 class="section-header">
 						<!-- Recent Articles:  -->
-						{{page.ParentCategory.CategoryName}}</h3>
+						<h3 class="section-header">{{page.ParentCategory.CategoryName}}</h3>
 						<div class="sidebar-article-block">
 							{% for r in page.recent %}
 								<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">

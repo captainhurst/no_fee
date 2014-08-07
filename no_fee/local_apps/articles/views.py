@@ -27,7 +27,6 @@ import pprint
 
 def get_article(request, category, article_slug):
 	slug_components = article_slug.split('/')
-
 	try:
 		pc = Category.objects.get(CategorySlug=category)
 		subs = pc.get_children()

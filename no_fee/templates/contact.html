@@ -1,24 +1,25 @@
 {% extends "base.html" %}
+{% load mptt_tags %}
 
 		{% block head %}
 			<meta charset="utf-8">
 		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <meta name="description" content="Hurst's Ace - Cedar City's Local Hardware Store. We have wide variety of products for your projects from paint to plumbing!">
+		    <meta name="description" content="">
 		    <meta name="author" content="Ryan Hurst">
-			<meta name="keywords" content="Paint, Plubming, Tools, Hardware, Houseware">
+			<meta name="keywords" content="">
 
-		    <title>4th South Ace | Contact Us</title>
+		    <title>Save Money and Contact Us</title>
 
 			<!--Facebook Meta Tags-->
-			<meta property=”og:title” content=”{{page.titleTag}}”/>
-			<meta property=”og:type” content=”listing”/>
-			<meta property=”og:image” content=””/>
-			<meta property=”og:url” content=”{{request.path}}”/>
-			<meta property=”og:description” content=”{{page.metaDescription}}”/>
-			<meta property=”og:street_address” content="165 S Main St. Cedar City, UT 84720"/>
-			<meta property=”og:locality” content="Cedar City, Utah" />
-			<meta property=”og:phone_number” content=”(801) 424-1414”/>
-			<meta property=”og:website” content=”http://www.hurstacecc.com”/>
+			<meta property=”og:title” content="Save Money and Contact Us"/>
+			<meta property=”og:type” content="listing"/>
+			<meta property=”og:image” content=""/>
+			<meta property=”og:url” content="{{request.path}}"/>
+			<meta property=”og:description” content="{{global.metaDescription}}"/>
+			<meta property=”og:street_address” content=""/>
+			<meta property=”og:locality” content="Orange County, CA" />
+			<meta property=”og:phone_number” content="{{globalMeta.PhoneNumber}}"/>
+			<meta property=”og:website” content=""/>
 
 			<!--Twitter Meta Tags-->
 			<meta name=”twitter:card” content=”summary”>
@@ -29,14 +30,13 @@
 		{% endblock%}
 
 		{% block sub_header %}
-			<div class='content_spacer'></div>
-
+		<section id="contact">
 		    <div class="container">
 			<div class='row'>
-				<div class='col-lg-8 col-md-8 col-sm-8 contactForm'>
+				<div class='col-lg-6 col-md-6 col-sm-12 col-xs-12'>
 					{% if sent == False %}
-					<h1 class='big_red_header'>Contact Us</h1>
-					<p class='lead'>We always appreciate hearing from you.</p>
+					<h1 class=''>Contact Us</h1>
+					<p class='lead'>Let us help you save money on your next real estate purchase.</p>
 					<form role="form" action="/contact/" method="post">
 						{% csrf_token %}
 					  <div class="form-group">
@@ -52,7 +52,7 @@
 					  	{{ contact.message }}
 					  </div>
 
-					  <button type="submit" class="btn btn-custom-twitter btn-lg">Send</button>
+					  <button type="submit" class="btn full-width-contact-button btn-lg">Send</button>
 					</form>
 					{% endif %}
 					
@@ -65,121 +65,90 @@
 					
 					
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-3 col-md-offset-1 col-lg-offset-1 col-sm-offset-1">
-					<div class="sidebar">
-						<h2 class='big_red_header_sb'>Hours</h2>			
-						<div class='store_hours_div'>
-							<p class='store_hours'><span class='store_hours_text'>Monday - Saturday: </span></br><span class='store_hours_numbers'>8:00am - 7:00pm</span></p>
-							<p class='store_hours'><span class='store_hours_text'>Sunday: </span></br><span class='store_hours_numbers'>10:00am - 4:00pm</span></p>
+				<div class="sidebar-column col-lg-4 col-md-4 col-sm-12  col-xs-12 col-md-offset-2 col-lg-offset-2">
+					<div class="sidebar-section-wrapper">
+						{% if articles %}
+						
+						<h3 class="section-header">
+							Featured Articles
+						</h3>
+						<!-- Featured Articles:  -->
+						<div class="sidebar-article-block">
+							{% for r in articles %}
+								<div class="sidebar-image-article-wrapper col-lg-12 col-md-12 col-sm-6 col-xs-6">
+									{% drilldown_tree_for_node r.ParentCategory as sc %}
+									<a href="{% for sub_cat in sc %}{% if sub_cat.is_child_node %}{%elif r.ParentCategory.CategorySlug == sub_cat.CategorySlug %}{%else%}
+					/{{sub_cat.CategorySlug}}{%endif%}{% endfor %}/{{r.ParentCategory.CategorySlug}}/{{r.Slug}}">
+										{% if r.ArticleMedia.ArticleImage %}
+										<img class="lazy" data-src="/media/{{r.ArticleMedia.ArticleImage }}" src="" alt="&nbsp;">
+										{% elif r.ArticleMedia.ArticleImageAsUrl %}
+										<img class="lazy" data-src="{{r.ArticleMedia.ArticleImageAsUrl  }}" src="" alt="&nbsp;">
+										{% endif %}
+										<h5>{{ r.Title}}</h5>
+									</a>
+								</div>
+							{% endfor %}
+						{% endif %}	
 						</div>
 					</div>
-					<div class="sidebar margin-top-20">
-						<h2 class='big_red_header_sb'>Newsletter</h2>
-							<div id="emailSubmitHide">
-								<form id='ajax-email-list' role="form">{% csrf_token %}
-									<div class="form-group">
-									<label class="sr-only" for="exampleInputEmail2">Email address</label>
-									{{ecForm.emailSB}}
-									</div>
-									<button class="btn btn-sm btn-success pull-right" id="submit-email-button" onclick="submitEmail(event);">Submit Email</button>
-								</form>
-							</div>
-							<div id="onEmailSubmit" style="display: none;">
-								<p class="thank-you-text">Thank you! Expect great project ideas and discounts in your inbox!</p>
-							</div>
-								<script type='text/javascript'>
-								function submitEmail(e){
-									e.preventDefault();
-									var email_form_info = $('#ajax-email-list').serialize();
-										//alert(email_form_info);
-										$.ajax({
-											type:'POST',
-											url: '/ajax/email_capture',
-											data: email_form_info,
-											success: function(r){
-						                    	//alert(r);
-													if(r == "True"){
-														$("#emailSubmitHide").hide();
-														$("#onEmailSubmit").show();
-													}else if(r == 'invalid'){
-														$("#emailSubmitHide").hide();
-														$("#onEmailSubmit").show();
-													}else if (r == "False"){
-														
-													}
-												},
-										});
-								}
-								</script>
-					</div>	
-					<div class="sidebar margin-top-20">
-						<h2 class='big_red_header_sb'>Store Blog</h2>
-						{% if blog %}			
-						{% for b in blog %}
-							<h4 class='subCategoryHeaderSB'><a href='/blog/{{ b.category.category_slug }}/{{b.descriptive_url}}'>{{b.article_title}}</a></h4>
-							<p class='articleTeaseSB'>{{b.article_text|striptags|truncatewords:20}} <a href="/blog/{{ b.category.category_slug }}/{{b.descriptive_url}}">[Read More]</a></p>
-						{% endfor %}
-						{% else %}
-							<p classp="no-content">There are no blog articles at this time.</p>
-						{% endif %}
-					</div>  
-
-					<div class="margin-top-20">
-					<h2 class='big_red_header_sb'>Store News</h2>
-						{% if news %}						
-						{% for n in news %}
-							<h4 class='subCategoryHeaderSB'><a href='/news/{{n.descriptive_url}}'>{{n.news_title}}</a></h4>
-							<p class='articleTeaseSB'>{{n.news_text|striptags|truncatewords:20}} <a href="/news/{{n.descriptive_url}}">[Read More]</a></p>
-						{% endfor %}
-						{% else %}
-							<p classp="no-content">There are no news articles at this time.</p>
-						{% endif %}
-					</div>
+				<!-- end sidebar column -->
 		        </div><!-- /.col-lg-5 -->
 		      </div><!-- /.row -->
 			</div>
-		      <!-- Three columns of text below the carousel -->
-		      
-		       
-
-		      
-
-
-		      <!-- START THE FEATURETTES -->
-		
-
-		      <!--<hr class="featurette-divider">
-
-		      <div class="featurette">
-		        <img class="featurette-image img-circle pull-left" data-src="holder.js/512x512">
-		        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-		        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-		      </div>-->
-
-			
-
-		
+		</section>
 		{% endblock %}
+
+		{% block extra_js %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>			
+<script type='text/javascript'>
+	$(document).ready(function(){
+		$('img.lazy').lazy({
+			onFinishedAll: function() {
+            // after Lazy has loaded all images this function will be called once
+            	sameHeight(".sidebar-image-article-wrapper");	
+        }
+		});
+
+		$('.backstretch').each(function(){
+			var bgimg = $(this).data('bgimg');
+			$(this).backstretch(bgimg);
+		});
+
+		$('.product-image').each(function(){
+			var w = $(this).outerWidth();
+			$(this).css('height', w+'px');
+		});
+
+		$(window).resize(function(){
+			$('.product-image').each(function(){
+				var w = $(this).outerWidth();
+				$(this).css('height', w+'px');
+			});
+		});
+	});
+
+
+	$(document).ready(function(){
+	
+		$('.lazyYT').lazyYT();
 		
-		
-		{% block modals %}
-		<!-- Modal -->
-		  <div class="modal fade" id="myModal">
-		    <div class="modal-dialog">
-		      <div class="modal-content">
-		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		          <h4 class="modal-title">Modal title</h4>
-		        </div>
-		        <div class="modal-body">
-		          ...
-		        </div>
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		          <button type="button" class="btn btn-primary">Save changes</button>
-		        </div>
-		      </div><!-- /.modal-content -->
-		    </div><!-- /.modal-dialog -->
-		  </div><!-- /.modal -->
-		
+		$(window).resize(function(){
+			sameHeight(".sidebar-image-article-wrapper");
+
+			if( timer ) {
+		        clearTimeout(timer);
+		    }
+		 
+		    var timer = setTimeout( function() {
+		    	$('.home-article-image-grid').each(function(){
+					var w = $(this).outerWidth();
+					$(this).css('height', w+'px');
+				});
+		    }, 50 );
+			
+		});
+
+	});
+
+		  </script>
 		{% endblock %}

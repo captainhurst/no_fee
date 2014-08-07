@@ -31,7 +31,8 @@ def corp_page(request, corp_slug):
 	articles = Article.objects.all().order_by('-PublishTime')
 	articles.featured = list(articles.filter(isFeatured=True).order_by('-PublishTime'))[0:6]
 	page = CorpPage.objects.get(PageSlug=corp_slug)
-	context = {'page': page, 'articles': articles }
+	contact = ContactForm	
+	context = {'page': page, 'articles': articles, 'contact': contact }
 	return render(request, 'corp-pages.html', context)	
 
 

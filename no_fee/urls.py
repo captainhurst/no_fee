@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'', include('landing_page.urls')),
     url(r'', include('faqs.urls')),
     url(r'', include('corp_page.urls')),
-    # url(r'', include('contact.urls')),
+    url(r'', include('contact.urls')),
     url(r'', include('articles.urls')),
 
 

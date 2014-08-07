@@ -108,6 +108,10 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Email
+RECIPIENT_EMAIL_ADDRESS = "captainhurst@gmail.com"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
@@ -125,6 +129,8 @@ STATICFILES_DIRS = (
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 DJANGO_WYSIWYG_MEDIA_URL = STATIC_URL + "ckeditor/"
+
+
 
 TEMPLATE_DIRS = (
     #'/templates', 

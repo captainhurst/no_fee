@@ -25,12 +25,10 @@
         <div class="collapse navbar-collapse" id="header-nav-collapsed">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'landing_page.views.landing' %}">Home</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'contact.views.contact'%}">Contact</a></li>
             {% for c in corp %}
             <li><a href="/company/{{c.PageSlug}}">{{c.PageName}}</a></li>
             {% endfor %}
-            <!-- <li class="active"><a href="#">About</a></li>
-            <li><a href="#">Why NoFeeOC</a></li> -->
             <li><a href="{% url 'faqs.views.faq_page' %}">FAQ</a></li>
             {% full_tree_for_model articles.Category.get_root as category %}
             {% for c in category %}
@@ -39,7 +37,6 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ c.CategoryName }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <!-- <li><a href="{{c.get_absolute_url}}">{{c.CategoryName}}</a></li> -->
                   {% drilldown_tree_for_node c as sc %}
                   {% for sub_cat in sc %}
                     <li><a href="{{sub_cat.get_absolute_url}}">{{sub_cat.CategoryName}}</a></li>
@@ -48,53 +45,8 @@
                 {% else %}
                   <li><a href="{{c.get_absolute_url}}">{{c.CategoryName}}</a></li>
                 {% endif %}
-                  <!-- <li><a href="{% for sub_cat in sc %}{{sub_cat.CategorySlug}}{% if sub_cat.is_child_node %}{{sub_cat.CategorySlug}}{%elif r.ParentCategory.CategorySlug == sub_cat.CategorySlug %}{%else%}
-          /{{sub_cat.CategorySlug}}{%endif%}{% endfor %}">{{sub_cat.CategorySlug}}</a></li> -->
-              <!-- <li><a href="/{{c.CategorySlug}}/">{{c.CategoryName}}</a></li> -->
               {%endif%}
             {% endfor %}
-
-
-<!--             {% recursetree nodes %}
-              {% if node.get_descendant_count > 0 %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ node.CategoryName }} <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="{{node.get_absolute_url}}">{{node.CategoryName}}</a></li>
-                  {% if not node.is_leaf_node %}  
-                    {{children}}
-                   {% endif %}
-                </ul>
-              </li> 
-              {% else %}
-              <li><a href="/{{node.CategorySlug}}/">{{node.CategoryName}}</a></li>
-              {% endif %}
-            {% endrecursetree %} -->
-            <!-- {% for h in header %}
-              {% if h.CategorySlug in request.path %}  
-                {% if h.CategorySlug %}                      
-                <li><a href="/{{h.CategorySlug}}/" class="js-main-category active" data-category="{{h.CategorySlug}}">{{h}}</a></li>
-                {% else %}
-                {% endif %}
-              {% else %}
-                <li><a href="/{{h.CategorySlug}}/" class="js-main-category" data-category="{{h.CategorySlug}}">{{h}}</a></li>
-              {% endif %}
-            {% endfor %} -->
-            <!-- <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tips <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Buying</a></li>
-                <li><a href="#">Selling</a></li>
-                <li><a href="#">Tips</a></li>
-              </ul>
-            </li> -->
-            <!-- {{ node.CategorySlug }}
-                    {{ node.get_descendant_count }}
-                    {% if not node.is_leaf_node %}
-                        <ul class="children">
-                            {{ children }}
-                        </ul>
-                    {% endif %} -->
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
