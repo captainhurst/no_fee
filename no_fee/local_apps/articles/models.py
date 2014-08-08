@@ -13,8 +13,11 @@ add_ignored_fields(["^taggit\.managers"])
 class Category(MPTTModel):
 	CategoryName = models.CharField(max_length=80, null=True, blank=True, default=None)
 	CategoryLinkText = models.CharField(max_length=40, null=True, blank=True, default=None)
-	CategorySlug = models.SlugField(max_length=20)
+	CategorySlug = models.SlugField(max_length=40)
 	ParentCategory = TreeForeignKey('self', null=True, blank=True, related_name='children')
+	MetaCategoryDescription = models.TextField(max_length=200, null=True, blank=True, default=None)
+	MetaCategoryPageTitle = models.CharField(max_length=100, null=True, blank=True, default=None)
+	MetaCategoryKeywords = models.CharField(max_length=140, null=True, blank=True, default=None)
 
 	class MPTTMeta:
 		order_insertion_by = ['CategoryName']

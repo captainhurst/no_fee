@@ -114,19 +114,7 @@
 		$('.backstretch').each(function(){
 			var bgimg = $(this).data('bgimg');
 			$(this).backstretch(bgimg);
-		});
-
-		$('.product-image').each(function(){
-			var w = $(this).outerWidth();
-			$(this).css('height', w+'px');
-		});
-
-		$(window).resize(function(){
-			$('.product-image').each(function(){
-				var w = $(this).outerWidth();
-				$(this).css('height', w+'px');
-			});
-		});
+		});	
 	});
 
 

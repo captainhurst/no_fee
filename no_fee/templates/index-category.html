@@ -3,26 +3,24 @@
 		{% block head %}
 			<meta charset="utf-8">
 		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <meta name="description" content="{{page.metaDescription}}">
-		    <meta name="author" content="{{page.author}}">
+		    <meta name="description" content="{{category.MetaCategoryDescription}}">
 			<meta name="keywords" content="{{page.metaKeywords}}">
 
-		    <title>{{page.titleTag}}</title>
+		    <title>{{category.MetaCategoryPageTitle}}</title>
 
 			<!--Facebook Meta Tags-->
-			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:title” content=”{{category.MetaCategoryPageTitle}}”/>
 			<meta property=”og:type” content="article"/>
 			<meta property=”og:image” content=””/>
 			<meta property=”og:url” content=”{{request.path}}”/>
-			<meta property=”og:description” content=”{{page.metaDescription}}”/>
+			<meta property=”og:description” content=”{{category.MetaCategoryDescription}}”/>
 			<meta property=”og:website” content=””/>
 
 			<!--Twitter Meta Tags-->
 			<meta name=”twitter:card” content=”summary”>
 			<meta name=”twitter:url” content=”{{request.path}}”>
-			<meta name=”twitter:title” content="{{page.titleTag}}">
-			<meta name=”twitter:description” content="{{page.metaDescription}}">
-			<meta name=”twitter:image” content=””>
+			<meta name=”twitter:title” content="{{category.MetaCategoryPageTitle}}">
+			<meta name=”twitter:description” content="{{category.MetaCategoryDescription}}">
 		{% endblock %}
 
 		{% block css %}
@@ -30,23 +28,53 @@
 		{% endblock %}
 
 		{% block sub_header %}
-		<div class="main-content-container">
-			<div class="container">
-				{% include "components/_content_banner.html"%}
-			</div>
-			<!-- /container -->
 			<section>
 				<div class="container">
-					<h2 class="section-header">Article Section</h2>
-					{% include "components/_article_blocks.html"%}
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							{% with articles.featured|first as ff %}
+								{% if ff.ArticleMedia.ArticleImage %}
+									<div class="main-featured-content-wrapper backstretch" data-bgimg="/media/{{ff.ArticleMedia.ArticleImage}}">
+			                    {% elif ff.ArticleMedia.ArticleImageAsUrl %}
+			                    	<div class="main-featured-content-wrapper backstretch" data-bgimg="{{ff.ArticleMedia.ArticleImageAsUrl}}">
+			                    {% endif %}			
+								
+										<a href="{{ff.ParentCategory.get_absolute_url }}{{ff.Slug}}">
+										<span class="main-featured-content-text-wrapper">
+											<h2>{{ff.Title}}</h2>
+											{% if ff.Subtitle %}
+											<p>{{ff.Subtitle}}</p>
+											{% endif %}
+										</span>
+									</a>
+								</div>
+							{% endwith %}	
+						</div>
+						<div class="col-lg-4  col-md-4 col-sm-12 col-xs-12">
+							{% if subcat %}
+							<div class="related-categories-wrapper">
+								<h3>Related Categories</h3>
+								{% for sc in subcat %}
+								<a href="{{sc.get_absolute_url}}">{{sc.CategoryName}}</a>
+								{% endfor %}
+							</div>
+							{% endif %}
+						</div>
+					</div>
 				</div>
 				<!-- /container -->
-			</section>
-			{% if articles.video %}
+			</section>	
+			{% if articles.featured %}
 			<section>
-			{% include "components/_video_section.html"%}				
+					{% include "components/_article_blocks_featured_section.html"%}
 			</section>
 			{% endif %}
+			{% if articles.section %}
+			<section>
+					{% include "components/_article_blocks.html"%}
+			</section>
+			{% endif %}
+			{% include "components/_contact_block.html"%}				
 		</div>
 			
 		{% endblock %}
@@ -57,7 +85,6 @@
 		{% endblock %}
 		
 		{% block extra_js %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>	
 <script>
 	$(document).ready(function(){
 		$('.backstretch').each(function(){
@@ -68,39 +95,24 @@
 			var w = $(this).outerWidth();
 			$(this).css('height', w+'px');
 		});
-		// $("#owl").owlCarousel({
- 
-		//       navigation : false, // Show next and prev buttons
-		//       slideSpeed : 300,
-		//       paginationSpeed : 400,
-		//       stopOnHover: true,
-		//       singleItem:true
-		 
-		//       // "singleItem:true" is a shortcut for:
-		//       // items : 1, 
-		//       // itemsDesktop : false,
-		//       // itemsDesktopSmall : false,
-		//       // itemsTablet: false,
-		//       // itemsMobile : false
-		 
-		//   });		
-		$('.lazyYT').lazyYT();
-
-
-		$(window).resize(function(){
-
-			if( timer ) {
-		        clearTimeout(timer);
-		    }
-		 
-		    var timer = setTimeout( function() {
-		    	$('.home-article-image-grid').each(function(){
-					var w = $(this).outerWidth();
-					$(this).css('height', w+'px');
-				});
-		    }, 100 );
 			
-		});
+		// $('.lazyYT').lazyYT();
+
+
+		// $(window).resize(function(){
+
+		// 	if( timer ) {
+		//         clearTimeout(timer);
+		//     }
+		 
+		//     var timer = setTimeout( function() {
+		//     	$('.home-article-image-grid').each(function(){
+		// 			var w = $(this).outerWidth();
+		// 			$(this).css('height', w+'px');
+		// 		});
+		//     }, 100 );
+			
+		// });
 	});
 </script>
 		{% endblock %}

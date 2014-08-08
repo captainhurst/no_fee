@@ -3,9 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h2 class="section-spacer"><span>Articles</span></h2>
+                <h2 class="section-spacer"><span>Featured</span></h2>
             </div>
-            {% for a in articles.section %}
+            {% for a in articles.featured %}
+            {% if not forloop.first %}
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <a href="{{a.ParentCategory.get_absolute_url}}{{a.Slug}}" class="article-wrapper">
                     {% if a.ArticleMedia.ArticleImage %}
@@ -27,6 +28,7 @@
                     </div>
                 </a>
             </div>
+            {% endif %}
             <!-- Article Wrapper -->
             {% endfor %}
         </div>

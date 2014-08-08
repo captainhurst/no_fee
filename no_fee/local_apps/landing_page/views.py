@@ -18,34 +18,12 @@ import string
 from contact.forms import ContactForm
 from models import LandingPageLead, BannerMedia
 from articles.models import Article
-#from models import LandingPageModel, LandingPageMeta, EmailCaptureModel, LandingImageContentModel, LandingContent
-#from forms import EmailCaptureForm
+
 
 def landing(request):
-	#title = LandingPageModel.objects.all().order_by("-id")[0]
-	#meta = LandingPageMeta.objects.all().order_by("-id")[0]
-	#ss_con = LandingImageContentModel.objects.all().order_by("-id")[0]
-	#ssc = LandingContent.objects.all().order_by("rank")
-	#featured = ArticleCategoryModel.objects.all()
-	#for f in featured:
-	#	f.list = ArticlePageModel.objects.filter(id=f.id).order_by('-created_datetime')[2]
-	#articles = ArticlePageModel.objects.all().order_by("-created_datetime")[:5]
-	#ecForm = EmailCaptureForm()
-	#context = {'title': title, 'meta': meta, 'ss': ss_con, 'featured': featured, 'seo': ssc}
 	articles = Article.objects.all()[:12]
 	lead = LandingPageLead.objects.filter(isLive=True)[0]
 	banner = BannerMedia.objects.filter(isLive=True).latest('id')
 	contact = ContactForm
 	context = {'title':"rbh.me", 'contact': contact, 'banner': banner, 'lead': lead, 'articles': articles }
 	return render(request, 'index.html', context) 
-	
-# def email_capture(request):
-# 	if request.POST:
-# 		emailCapture = EmailCaptureForm(request.POST)
-# 		if emailCapture.is_valid():
-# 			emailCapture.save()
-# 			return HttpResponse(True)
-# 		else:
-# 			return HttpResponse("invalid")
-# 	else:
-# 		return HttpResponse(False)
