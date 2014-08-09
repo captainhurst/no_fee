@@ -84,7 +84,6 @@
 		{% endblock %}
 		
 		{% block extra_js %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>	
 <script>
 	$(document).ready(function(){
 		$('.backstretch').each(function(){
@@ -97,6 +96,7 @@
             	sameHeight(".sidebar-image-article-wrapper");	
         }
 		});
+        $('.sidebar-image-article-wrapper ').matchHeight();
 
 		$('.backstretch').each(function(){
 			var bgimg = $(this).data('bgimg');
@@ -122,6 +122,7 @@
 
 
 		$(window).resize(function(){
+        	$('.sidebar-image-article-wrapper ').matchHeight();
 
 			if( timer ) {
 		        clearTimeout(timer);

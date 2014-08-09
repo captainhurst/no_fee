@@ -83,10 +83,10 @@
 				
 					<section class="social-share">
 						<div class="row">
-							<a class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" data-network="FB" href="https://www.facebook.com/sharer/sharer.php?app_id=x&u=http%3A%2F%2Fwww.nofeeoc.com{{request.path|urlencode}}&t={{page.Title|urlencode}}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
+							<a class="btn btn-facebook full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" data-network="FB" href="https://www.facebook.com/sharer/sharer.php?app_id=501274963337459&u={{ request.build_absolute_uri|urlencode }}&t={{page.Title|urlencode}}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">
 								<i class="fa fa-facebook"></i> Share on Facebook
 							</a>
-							<a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.nofeeoc.com{{request.path|urlencode}}&text={{page.Title|urlencode}}&via=nofeeoc" class="btn btn-twitter full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+							<a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{page.Title|urlencode}}&via=nofeeoc" class="btn btn-twitter full-width-button col-lg-6 col-md-6 col-sm-6 col-xs-6" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
 						</div>
 					</section>
 				</div>
@@ -128,7 +128,6 @@
 		{% endblock%}
 		
 		{% block extra_js %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>			
 <script type='text/javascript'>
 	$(document).ready(function(){
 		$('img.lazy').lazy({
@@ -142,6 +141,8 @@
 			var bgimg = $(this).data('bgimg');
 			$(this).backstretch(bgimg);
 		});	
+
+		$('.sidebar-image-article-wrapper ').matchHeight();
 	});
 
 

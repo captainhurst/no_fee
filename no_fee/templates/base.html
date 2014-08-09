@@ -11,9 +11,7 @@
 
     <!-- Date: 2013-01-30 -->
     <link href='http://fonts.googleapis.com/css?family=Vesper+Libre:400,900,700,500' rel='stylesheet' type='text/css'>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -36,7 +34,7 @@
     {% include "components/_footer.html" %}
     
 <!-- <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>   -->
-<script src="/static/js/globals.js"></script>
+<script src="/static/js/globals.min.js"></script>
 <script>
 
     $(document).ready(function(){
@@ -44,6 +42,7 @@
             var bgimg = $(this).data('bgimg');
             $(this).backstretch(bgimg);
         });
+        $('.article-wrapper').matchHeight();
     });
 
 </script>
