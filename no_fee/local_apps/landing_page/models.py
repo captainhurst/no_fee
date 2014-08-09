@@ -21,6 +21,15 @@ class BannerMedia(models.Model):
 
 	def __unicode__(self):
 		return u'%s | Is Live: %s' % (self.BannerMediaName, self.isLive)
+
+class DefaultSocialImage(models.Model):
+	SocialImage = models.ImageField(upload_to='home_banner', null=True, blank=True)
+	SocialImageAsUrl = models.URLField(max_length=255,null=True, blank=True, default=None)
+	PublishTime = models.DateTimeField(auto_now_add=True)
+	isLive = models.BooleanField(blank=True, default=False)
+
+	def __unicode__(self):
+		return u'%s  %s' % (self.BannerImage, self.BannerImageAsUrl)		
 	
 
 	# Author = models.ForeignKey(User)

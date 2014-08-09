@@ -2,14 +2,41 @@
 {% load mptt_tags %}
 
 		{% block head %}
-
+		<link rel="canonical" href="{{ request.build_absolute_uri }}"/>
 		<title>{{ page.Title }}</title>
-		<meta name="description" content="{{ page.Description }}">
-		<meta name="author" content="{{ page.Author.first_name }} {{ page.Author.last_name }}">
+		<meta name="description" content="{{ page.Description }}"/>
+		<meta name="author" content="{{ page.Author.first_name }} {{ page.Author.last_name }}"/>
+		<!-- og images -->
 		<meta property="og:title" content="{{ page.Title }}"/>
-		<meta property="og:image" content="/media/{{ page.ArticleMedia.SocialImage }}"/>
+		{% if page.ArticleMedia.ArticleImageAsUrl %}
+		<meta property="og:image" content="{{ page.ArticleMedia.ArticleImageAsUrl }}"/>
+		{% elif page.ArticleMedia.ArticleImage %}
+		<meta property="og:image" content="/media/{{ page.ArticleMedia.ArticleImage }}"/>
+		{% else %}
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="twitter:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="twitter:image" content="{{socialImage.SocialImage}}">
+			{% endif %}	
+		{% endif %}
 		<meta property="og:description" content="{{ page.Description }}"/>
 		<meta property="og:type" content="article"/>
+		<!--Twitter Meta Tags-->
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+		<meta name="twitter:title" content="{{page.Title}}">
+		<meta name="twitter:description" content="{{page.Description}}">
+		{% if page.ArticleMedia.ArticleImageAsUrl %}
+		<meta property="twitter:image" content="{{ page.ArticleMedia.ArticleImageAsUrl }}"/>
+		{% elif page.ArticleMedia.ArticleImage %}
+		<meta property="twitter:image" content="/media/{{ page.ArticleMedia.ArticleImage }}"/>
+		{% else %}
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="twitter:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="twitter:image" content="{{socialImage.SocialImage}}">
+			{% endif %}	
+		{% endif %}
 
 		{% endblock%}
 		
@@ -28,21 +55,21 @@
 					        <p>{{page.Subtitle}}</p>
 					    {% endif %}
 					</div>
-					{% if page.ArticleMedia.ArticleImage %}
-					<div class="lead-image-wrapper">
-					    <img class="lazy" data-src="/media/{{page.ArticleMedia.ArticleImage}}" src="" alt="&nbsp;" style=""/>
+					{% if page.ArticleMedia.YouTubeId %}
+					<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ page.ArticleMedia.YouTubeId }}" data-width="100%" data-height="500">
 					</div>
 					{% elif page.ArticleMedia.ArticleImageAsUrl %}
 					    <div class="lead-image-wrapper">
 					        <img class="lazy" data-src="{{page.ArticleMedia.ArticleImageAsUrl}}" src="" alt="&nbsp;" style=""/>
 					    </div>  
-					{% elif page.ArticleMedia.YouTubeId %}
-					<div class="lead-image-wrapper lazyYT" data-youtube-id="{{ page.ArticleMedia.YouTubeId }}" data-width="100%" data-height="500">
+					{% elif page.ArticleMedia.ArticleImage %}
+					<div class="lead-image-wrapper">
+					    <img class="lazy" data-src="/media/{{page.ArticleMedia.ArticleImage}}" src="" alt="&nbsp;" style=""/>
 					</div>
 					{% endif %}
 					<div class="time-author-wrapper">
 					    <p>
-					        <a href="/author/{{page.Author.first_name}}-{{page.Author.last_name}}" class="author">{{page.Author.first_name}} {{page.Author.last_name}}</a> 
+					        <span class="author">{{page.Author.first_name}} {{page.Author.last_name}}</span> 
 					        <span class="pipe-margin">|</span> <span class="date">{{page.PublishTime}}</span><span class="pipe-margin">|</span> {% if page.ArticleMedia.ArticleImageSource %}
 					    <span class="author">Photo Credit: <a href="{{page.ArticleMedia.ArticleImageSourceUrl}}" target="_BLANK">{{page.ArticleMedia.ArticleImageSource}}</a></span>
 					    {% endif %}

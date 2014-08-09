@@ -1,6 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from corp_page.views import *
+from django.contrib.sitemaps import FlatPageSitemap, GenericSitemap
+from sitemap import ArticleSitemap, CorpPageSitemap, StaticViewSitemap#, NewsSitemap, CategorySitemap, ProductsSitemap
+
 # from mptt_urls import url_mptt
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -16,4 +19,14 @@ urlpatterns += patterns('corp_page.views',
 	#url(r'^$', landing),
 	url(r'^company/(?P<corp_slug>[a-z-0-9]+)/$', corp_page),
 	# url_mptt(r'^(?P<url>.*)', name='article', settings=mptt_urls_articles_settings),
+)
+
+sitemaps = {
+    'article': ArticleSitemap,
+    'corp': CorpPageSitemap,
+    'static': StaticViewSitemap,
+}
+
+urlpatterns += patterns('',
+    (r'^sitemap\.xml', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 )

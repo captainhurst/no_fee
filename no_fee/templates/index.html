@@ -1,28 +1,43 @@
 {% extends "base.html" %}
 
 		{% block head %}
-			<meta charset="utf-8">
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <meta name="description" content="{{page.metaDescription}}">
-		    <meta name="author" content="{{page.author}}">
-			<meta name="keywords" content="{{page.metaKeywords}}">
-
-		    <title>{{page.titleTag}}</title>
+		    <meta name="description" content="{{lead.LandingMetaDescription}}">
+		    <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
+		    <title>{{lead.LeadTitle}}</title>
 
 			<!--Facebook Meta Tags-->
 			<meta property=”og:title” content=”{{page.titleTag}}”/>
 			<meta property=”og:type” content="article"/>
-			<meta property=”og:image” content=””/>
-			<meta property=”og:url” content=”{{request.path}}”/>
-			<meta property=”og:description” content=”{{page.metaDescription}}”/>
-			<meta property=”og:website” content=””/>
+			{% if banner.BannerImageAsUrl%}
+    	        <meta property=”og:image”  content="{{banner.BannerImageAsUrl}}" />
+            {% elif banner.BannerImage %}
+	            <meta property=”og:image”  content="{{banner.BannerImage}}"/>
+	        {% else %}
+	       		{% if socialImage.SocialImageAsUrl %}
+					<meta name="og:image" content="{{socialImage.SocialImageAsUrl}}">
+				{% elif socialImage.SocialImage %}
+					<meta name="og:image" content="{{socialImage.SocialImage}}">
+				{% endif %}
+            {% endif %}
+			<meta property=”og:url” content="{{ request.build_absolute_uri }}"/>
+			<meta property=”og:description” content="{{lead.LandingMetaDescription}}"/>
 
 			<!--Twitter Meta Tags-->
 			<meta name=”twitter:card” content=”summary”>
-			<meta name=”twitter:url” content=”{{request.path}}”>
-			<meta name=”twitter:title” content="{{page.titleTag}}">
-			<meta name=”twitter:description” content="{{page.metaDescription}}">
-			<meta name=”twitter:image” content=””>
+			<meta name=”twitter:url” content=”{{ request.build_absolute_uri }}”>
+			<meta name=”twitter:title” content="{{lead.LeadTitle}}">
+			<meta name=”twitter:description” content="{{lead.LandingMetaDescription}}">
+			{% if banner.BannerImageAsUrl%}
+    	        <meta name="twitter:image"   content="{{banner.BannerImageAsUrl}}" />
+            {% elif banner.BannerImage %}
+	            <meta name="twitter:image"   content="{{banner.BannerImage}}"/>
+	        {% else %}
+		        {% if socialImage.SocialImageAsUrl %}
+					<meta name="twitter:image" content="{{socialImage.SocialImageAsUrl}}">
+				{% elif socialImage.SocialImage %}
+					<meta name="twitter:image" content="{{socialImage.SocialImage}}">
+				{% endif %}
+            {% endif %}
 		{% endblock %}
 
 		{% block css %}
@@ -73,5 +88,14 @@
 		{% endblock %}
 		
 		{% block extra_js %}
+		<script tyep="text/javascript">
+		// $(document).ready(function(){
+		// 	sameHeight(".same-height-block");
+		// 	$(window).resize(function(){
+		// 		sameHeight(".same-height-block");
+		// 	});
+  //   	});
 
+		
+		</script>
 		{% endblock %}

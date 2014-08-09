@@ -21,7 +21,7 @@ from articles.models import Article
 
 
 def landing(request):
-	articles = Article.objects.all()[:12]
+	articles = Article.objects.filter(isLive=True)[:12]
 	lead = LandingPageLead.objects.filter(isLive=True)[0]
 	banner = BannerMedia.objects.filter(isLive=True).latest('id')
 	contact = ContactForm

@@ -25,7 +25,7 @@ def get_article(request, category, article_slug):
 	try:
 		page = Article.objects.prefetch_related().get(Slug=slug_components[-1])
 		pc = Category.objects.get(CategorySlug=category)
-		page.recent = Article.objects.filter(Q(ParentCategory__ParentCategory_id=pc.id) | Q(ParentCategory__id=pc.id)).exclude(id=page.id).order_by('-PublishTime')[:6]
+		page.recent = Article.objects.filter(Q(isLive=True), Q(ParentCategory__ParentCategory_id=pc.id) | Q(ParentCategory__id=pc.id)).exclude(id=page.id).order_by('-PublishTime')[:6]
 		contact = ContactForm		
 		context = {'page': page, 'contact': contact, "category": pc}
 		return render(request, 'article-video-hybrid.html', context)

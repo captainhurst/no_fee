@@ -28,7 +28,7 @@ import pprint
 
 
 def corp_page(request, corp_slug):
-	articles = Article.objects.all().order_by('-PublishTime')
+	articles = Article.objects.filter(isLive=True).order_by('-PublishTime')
 	articles.featured = list(articles.filter(isFeatured=True).order_by('-PublishTime'))[0:6]
 	page = CorpPage.objects.get(PageSlug=corp_slug)
 	contact = ContactForm	

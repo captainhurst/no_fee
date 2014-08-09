@@ -1,26 +1,32 @@
 {% extends "base.html" %}
 {% load mptt_tags %}
 		{% block head %}
-			<meta charset="utf-8">
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="canonical" href="{{ request.build_absolute_uri }}"/>
 		    <meta name="description" content="{{category.MetaCategoryDescription}}">
-			<meta name="keywords" content="{{page.metaKeywords}}">
-
 		    <title>{{category.MetaCategoryPageTitle}}</title>
-
 			<!--Facebook Meta Tags-->
-			<meta property=”og:title” content=”{{category.MetaCategoryPageTitle}}”/>
+			<meta property=”og:title” content="{{category.MetaCategoryPageTitle}}"/>
 			<meta property=”og:type” content="article"/>
-			<meta property=”og:image” content=””/>
-			<meta property=”og:url” content=”{{request.path}}”/>
-			<meta property=”og:description” content=”{{category.MetaCategoryDescription}}”/>
-			<meta property=”og:website” content=””/>
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="og:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="og:image" content="{{socialImage.SocialImage}}">
+			{% endif %}
+			<meta property=”og:description” content="{{category.MetaCategoryDescription}}"/>
+			<meta property=”og:url” content="{{request.build_absolute_uri}}"/>
+			<meta property=”og:website” content="article"/>
 
 			<!--Twitter Meta Tags-->
-			<meta name=”twitter:card” content=”summary”>
-			<meta name=”twitter:url” content=”{{request.path}}”>
+			<meta name=”twitter:card” content="summary">
+			<meta name=”twitter:url” content="{{request.build_absolute_uri}}">
 			<meta name=”twitter:title” content="{{category.MetaCategoryPageTitle}}">
 			<meta name=”twitter:description” content="{{category.MetaCategoryDescription}}">
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="twitter:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="twitter:image" content="{{socialImage.SocialImage}}">
+			{% endif %}
+
 		{% endblock %}
 
 		{% block css %}

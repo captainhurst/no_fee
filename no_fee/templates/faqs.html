@@ -1,28 +1,33 @@
 {% extends "base.html" %}
 {% load mptt_tags %}
 		{% block head %}
-			<meta charset="utf-8">
-		    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="canonical" href="{{ request.build_absolute_uri }}"/>
 		    <meta name="description" content="{{page.metaDescription}}">
-		    <meta name="author" content="{{page.author}}">
-			<meta name="keywords" content="{{page.metaKeywords}}">
 
-		    <title>{{page.titleTag}}</title>
+
+		    <title>Frequently Asked Questions</title>
 
 			<!--Facebook Meta Tags-->
-			<meta property=”og:title” content=”{{page.titleTag}}”/>
+			<meta property=”og:title” content="Frequently Asked Questions"/>
 			<meta property=”og:type” content="article"/>
-			<meta property=”og:image” content=””/>
-			<meta property=”og:url” content=”{{request.path}}”/>
-			<meta property=”og:description” content=”{{page.metaDescription}}”/>
-			<meta property=”og:website” content=””/>
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="og:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="og:image" content="{{socialImage.SocialImage}}">
+			{% endif %}
+			<meta property=”og:url” content="{{request.build_absolute_uri}}"/>
+			<meta property=”og:website” content="FAQs"/>
 
 			<!--Twitter Meta Tags-->
-			<meta name=”twitter:card” content=”summary”>
-			<meta name=”twitter:url” content=”{{request.path}}”>
-			<meta name=”twitter:title” content="{{page.titleTag}}">
+			<meta name=”twitter:card” content="summary">
+			<meta name=”twitter:url” content="{{request.build_absolute_uri}}">
+			<meta name=”twitter:title” content="Frequently Asked Questions">
 			<meta name=”twitter:description” content="{{page.metaDescription}}">
-			<meta name=”twitter:image” content=””>
+			{% if socialImage.SocialImageAsUrl %}
+			<meta name="twitter:image" content="{{socialImage.SocialImageAsUrl}}">
+			{% elif socialImage.SocialImage %}
+			<meta name="twitter:image" content="{{socialImage.SocialImage}}">
+			{% endif %}
 		{% endblock %}
 
 		{% block css %}
