@@ -18,9 +18,7 @@ from datetime import datetime
 from itertools import chain
 from mptt.utils import drilldown_tree_for_node
 from django.db.models.query import EmptyQuerySet
-from articles.models import ArticleMedia, Article, FeaturedArticle, Category
 from models import CorpPage
-from contact.forms import ContactForm
 import pprint
 
 # from landing_page.forms import EmailCaptureForm
@@ -28,11 +26,8 @@ import pprint
 
 
 def corp_page(request, corp_slug):
-	articles = Article.objects.filter(isLive=True).order_by('-PublishTime')
-	articles.featured = list(articles.filter(isFeatured=True).order_by('-PublishTime'))[0:6]
 	page = CorpPage.objects.get(PageSlug=corp_slug)
-	contact = ContactForm	
-	context = {'page': page, 'articles': articles, 'contact': contact }
+	context = {'page': page}
 	return render(request, 'corp-pages.html', context)	
 
 
